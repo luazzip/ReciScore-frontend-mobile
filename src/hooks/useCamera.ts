@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Alert } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import Toast from 'react-native-toast-message';
+import { getAccessToken } from '../services/tokenService';
 
 export function useCamera() {
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
@@ -44,42 +45,50 @@ export function useCamera() {
     }
   }
 
-  async function uploadPhoto(uri: string) {
-    setUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append('file', {
-        uri,
-        name: `reciclaje_${Date.now()}.jpg`,
-        type: 'image/jpeg',
-      } as any);
 
-      const response = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/upload`,
-        {
-          method: 'POST',
-          body: formData,
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }
-      );
-      const data = await response.json();
-      setUploadedPhotoUrl(data.url);
-      Toast.show({
-        type: 'success',
-        text1: 'Foto cargada',
-        text2: 'La foto se subió correctamente.',
-      });
-    } catch {
-      Toast.show({
-        type: 'error',
-        text1: 'Error al subir foto',
-        text2: 'Revisa tu conexión e inténtalo de nuevo.',
-      });
-      setPhotoUri(null);
-    } finally {
-      setUploading(false);
+async function uploadPhoto(uri: string) {
+  setUploading(true);
+  try {
+    const formData = new FormData();
+    formData.append('file', {
+      uri,
+      name: `reciclaje_${Date.now()}.jpg`,
+      type: 'image/jpeg',
+    } as any);
+
+    const token = await getAccessToken();
+
+    const response = await fetch(
+      `${process.env.EXPO_PUBLIC_API_URL}/upload`,
+      {
+        method: 'POST',
+        body: formData,
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error('Upload failed');
     }
+
+    const data = await response.json();
+    setUploadedPhotoUrl(data.url);
+    Toast.show({
+      type: 'success',
+      text1: 'Foto cargada',
+      text2: 'La foto se subió correctamente.',
+    });
+  } catch {
+    Toast.show({
+      type: 'error',
+      text1: 'Error al subir foto',
+      text2: 'Revisa tu conexión e inténtalo de nuevo.',
+    });
+    setPhotoUri(null);
+  } finally {
+    setUploading(false);
   }
+}
 
   function resetCamera() {
     setPhotoUri(null);
