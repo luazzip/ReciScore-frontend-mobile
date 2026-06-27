@@ -1,18 +1,25 @@
 import React, { useContext } from 'react';
-import { Text, TouchableOpacity, Alert } from 'react-native';
+import { Text, TouchableOpacity, Alert, ActivityIndicator, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { DashboardScreen } from '../screens/DashboardScreen';
 import { RegisterRecyclingScreen } from '../screens/RegisterRecyclingScreen';
 import { MapScreen } from '../screens/MapScreen';
+import { RankingScreen } from '../screens/RankingScreen';
 import { RecyclingHistoryScreen } from '../screens/RecyclingHistoryScreen';
+import { LoginScreen } from '../screens/LoginScreen';
+import { RegisterScreen } from '../screens/RegisterScreen';
 import { useCurrentUser } from '../hooks/useCurrentUser';
-import { ActivityIndicator, View } from 'react-native';
 import { AuthContext } from '../contexts/AuthContext';
 
 const Tab = createBottomTabNavigator();
+const AuthStack = createStackNavigator();
 
 const ICONS: Record<string, string> = {
+  Inicio: '🏠',
   Registrar: '📷',
   Mapa: '🗺️',
+  Ranking: '🏆',
   Historial: '📋',
 };
 
@@ -59,7 +66,7 @@ function HistoryTab() {
   return <RecyclingHistoryScreen userId={userId} />;
 }
 
-export function AppNavigator() {
+function AppTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -70,9 +77,34 @@ export function AppNavigator() {
         tabBarInactiveTintColor: '#888',
       })}
     >
+      <Tab.Screen name="Inicio" component={DashboardScreen} />
       <Tab.Screen name="Registrar" component={RegisterRecyclingScreen} />
       <Tab.Screen name="Mapa" component={MapScreen} />
+      <Tab.Screen name="Ranking" component={RankingScreen} />
       <Tab.Screen name="Historial" component={HistoryTab} />
     </Tab.Navigator>
   );
+}
+
+function AuthFlow() {
+  return (
+    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+      <AuthStack.Screen name="Login" component={LoginScreen} />
+      <AuthStack.Screen name="Register" component={RegisterScreen} />
+    </AuthStack.Navigator>
+  );
+}
+
+export function AppNavigator() {
+  const auth = useContext(AuthContext);
+
+  if (!auth || auth.isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#2e7d32" />
+      </View>
+    );
+  }
+
+  return  <AppTabs /> ;
 }
