@@ -1,0 +1,466 @@
+--------- beginning of main
+06-27 10:28:55.772  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:28:55.775  4241  4265 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:28:55.781  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+--------- beginning of system
+06-27 10:28:55.890  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.893  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.895  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.897  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.898  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.899  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.907  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.908  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.913  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.920  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.922  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:55.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.893  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.902  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.904  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.907  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.909  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.912  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.914  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.921  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:56.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.088  3762  3762 I io_stats: !@ 179,0 r 21774505 379091610 w 1505373 29242528 d 260440 13936732 f 126272 392994 iot 8490856 6629996 th 51200 51200 38556 pt 40180 inp 0 0 63697.697
+06-27 10:28:57.640 27010 27050 I dzdy    : Scheduling one-off OpaEnabledBroadcastWorker now
+06-27 10:28:57.650 27010 27050 I exza    : Validating WorkManager process
+06-27 10:28:57.653 27010 27047 I exza    : (REDACTED) Processes: %s, %s, %s, %s
+06-27 10:28:57.669 27010 27050 D WM-PackageManagerHelper: Skipping component enablement for androidx.work.impl.background.systemjob.SystemJobService
+06-27 10:28:57.670 27010 27050 D WM-Schedulers: Created SystemJobScheduler and enabled SystemJobService
+06-27 10:28:57.678 27010 27050 I TetheringManager: registerTetheringEventCallback:com.google.android.googlequicksearchbox
+06-27 10:28:57.682 27010 27050 D ConnectivityManager: ConnectivityManager() mContext=com.google.android.apps.gsa.binaries.velvet.app.VelvetMultiprocessRoot_Application@8d85312 getOpPackageName()=com.google.android.googlequicksearchbox getBasePackageName()=com.google.android.googlequicksearchbox getPackageName()=com.google.android.googlequicksearchbox
+06-27 10:28:57.685 27010 27036 D WM-ForceStopRunnable: Is default app process = true
+06-27 10:28:57.687 27010 27036 D WM-ForceStopRunnable: Performing cleanup operations.
+06-27 10:28:57.753 27010 27036 D WM-SystemJobScheduler: Reconciling jobs
+06-27 10:28:57.778  4241  6172 D BatteryService: Sending ACTION_BATTERY_CHANGED. scale:100, info:{.chargerAcOnline = false, .chargerUsbOnline = true, .chargerWirelessOnline = false, .maxChargingCurrent = 0, .maxChargingVoltage = 0, .batteryStatus = CHARGING, .batteryHealth = GOOD, .batteryPresent = true, .batteryLevel = 37, .batteryVoltage = 3890, .batteryTemperature = 284, .batteryCurrent = 328, .batteryCycleCount = 0, .batteryFullCharge = 4000000, .batteryChargeCounter = 1496000, .batteryTechnology = Li-ion}
+06-27 10:28:57.779  4241  6172 D BatteryService: online:4, current avg:287, charge type:1, POGO powered:false, power sharing:false, high voltage charger:false, charger_type:0, capacity:280000, misc_event:0x0, current_event:0x0, current_now:328
+06-27 10:28:57.782  4241  4391 D MotionRecognitionService:   onReceive : ACTION_BATTERY_CHANGED, Plugged: 2
+06-27 10:28:57.782  4241  4391 I MotionRecognitionService: [TA] In/out: true, curr state: 1
+06-27 10:28:57.782  4241  4241 D SemWifiApBroadcastReceiver: Received : android.intent.action.BATTERY_CHANGED
+06-27 10:28:57.784  4241  4241 D AdaptiveBrightnessLongtermModelBuilder: Received android.intent.action.BATTERY_CHANGED
+06-27 10:28:57.784  4544  4544 D SemBigDataInfoController: Intent : android.intent.action.BATTERY_CHANGED
+06-27 10:28:57.788  4587  4587 D KeyguardUpdateMonitor: received broadcast android.intent.action.BATTERY_CHANGED
+06-27 10:28:57.789  4587  4587 I PowerUI : BATTERY_HEALTH_CHECK extraHealth=2 mBatteryMiscEvent=0
+06-27 10:28:57.789  4587  4587 D PowerUI : priorPlugType = 2 mPlugType = 2 priorBatteryStatus = 2 mBatteryStatus = 2
+06-27 10:28:57.798  4587  4587 D PowerUI.Notification: showChargingNotice oldChargingType : 1 currentChargingType : 1 oldChargingTime : 15276000 mChargingTime : 15276000
+06-27 10:28:57.798  4587  4587 D PowerUI.Notification: There is no change about charging status, so return!
+06-27 10:28:57.798  4587  4587 D PowerUI : Battery swelling mode - priorBatterySwellingMode = 0 mBatterySwellingMode = 0 mBatteryStatus = 2
+06-27 10:28:57.798  4587  4587 I PowerUI : mBatteryMiscEvent = 0
+06-27 10:28:57.801  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:28:57.815  4241  6470 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:28:57.818  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:28:57.824  4587  4587 I AODBatteryManager: updateBatteryData: ACTION_BATTERY_CHANGED
+06-27 10:28:57.826  4587  4587 I AODBatteryManager: saveBatteryData : AOD BatteryData [mBatteryLevel=37, mBatteryStatus=CHARGING, mBatteryPlugType=USB, mBatteryPlugged=true, mRemainingChargeTime=15276000, mBatteryChargingType=1, mBatteryChargerType=NORMAL, mBatteryOnline=USB, mBatterySwellingMode=NONE]
+06-27 10:28:57.826  4587  4587 D KeyguardUpdateMonitor: handleBatteryUpdate
+06-27 10:28:57.893  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.894  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.903  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.905  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.908  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.911  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.914  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.918 27010 27036 D WM-ForceStopRunnable: Found unfinished work, scheduling it.
+06-27 10:28:57.920  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:57.998 27010 27036 D WM-SystemJobScheduler: Scheduling work ID a384d834-f0f5-4151-a876-25337717e8a2 (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154654
+06-27 10:28:58.046 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 94f94c1d-4740-4dd8-94ff-8b8b01b20127 (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 153974
+06-27 10:28:58.089 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 989f29bc-a81e-43f9-b06d-cf1a154a9bef (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 153590
+06-27 10:28:58.123 27010 27036 D WM-SystemJobScheduler: Scheduling work ID b7be802d-7e4b-4014-bb2c-d389838972bd (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 153258
+06-27 10:28:58.157 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 08a64600-1498-430f-bcc4-c3ab590d5989 (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 153806
+06-27 10:28:58.186 27010 27036 D WM-SystemJobScheduler: Scheduling work ID aebc46a9-9eeb-4e5e-a13d-d87cb9f5b8f1 (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 154207
+06-27 10:28:58.204 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 3efde0b5-7130-458a-8a0f-de020d22a946 (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154653
+06-27 10:28:58.223 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 7bf86520-1291-42af-b4a7-ed525b4dd019 (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154652
+06-27 10:28:58.240 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 6c1bddcc-bdb4-4917-b2a0-34835e05e21d (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 154577
+06-27 10:28:58.254 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 61489ee6-01d8-42f5-8682-fab51ba131c8 (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 154591
+06-27 10:28:58.269 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 5c59a7c2-eccc-4c8c-8c24-87d5802b8a0c (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 154607
+06-27 10:28:58.278  4241  4296 I PowerManagerService: [PWL] On : 63380944 (317944 ms ago)
+06-27 10:28:58.278  4241  4296 I PowerManagerService: [PWL]  mStayOn: false  mWakeLockSummary & WAKE_LOCK_STAY_AWAKE: 20  mUserActivitySummary: 0x4
+06-27 10:28:58.279  4241  4296 I PowerManagerService: [PWL]  SCREEN_BRIGHT_WAKE_LOCK        'WindowManager' ON_AFTER_RELEASE ACQ=-1m46s912ms (uid=1000 pid=4241 pkg=android ws=WorkSource{10430})
+06-27 10:28:58.283 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 83c03c1c-edda-4f6c-88eb-9e470a1f436d (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154651
+06-27 10:28:58.299 27010 27036 D WM-SystemJobScheduler: Scheduling work ID f8aaa24f-e83a-469f-bc8e-aa6de3c2dec0 (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154656
+06-27 10:28:58.313 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 888db5c0-0ad0-4d61-b86c-5d3abd925483 (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 154629
+06-27 10:28:58.329 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 0a60b292-a996-4cd8-a89c-8f13c5e36f7c (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 153795
+06-27 10:28:58.347 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 8d3aa11c-2206-47c5-bd09-1bd3f4effec4 (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 153790
+06-27 10:28:58.365 27010 27036 D WM-SystemJobScheduler: Scheduling work ID a18e8b27-fc92-4b51-9cef-7b9258d5f4d7 (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154658
+06-27 10:28:58.383 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 905dad4f-d6b7-4ca4-b08f-a61c9b16330a (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154655
+06-27 10:28:58.399 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 1913ef88-1d72-432c-856b-f20a77b6d0ec (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 153984
+06-27 10:28:58.415 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 4e173c29-f34c-4e08-98fe-19f3c0df7a3a (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154660
+06-27 10:28:58.432 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 30c6ea8b-2e35-4448-bc7b-dbf1a49634fa (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154661
+06-27 10:28:58.447 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 3c14d384-37cf-45b0-8489-ca927c5cbe30 (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154650
+06-27 10:28:58.466 27010 27036 D WM-SystemJobScheduler: Scheduling work ID b00dd82c-3a36-4cc3-b90f-fe53c3725ebe (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 153985
+06-27 10:28:58.485 27010 27036 D WM-SystemJobScheduler: Scheduling work ID b1a95de8-df32-4c05-b2c7-16877f7c749e (androidx.work.multiprocess.RemoteListenableDelegatingWorker), Job ID 154662
+06-27 10:28:58.503 27010 27036 D WM-SystemJobScheduler: Scheduling work ID d3af16bc-d252-472e-8b62-4790c2eb975d (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 153981
+06-27 10:28:58.522 27010 27036 D WM-SystemJobScheduler: Scheduling work ID afa6b61d-a351-4713-bfde-545b5c8c792f (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 153983
+06-27 10:28:58.540 27010 27036 D WM-SystemJobScheduler: Scheduling work ID 2cffd14f-4972-4ed3-b3e3-7d1a4e679bb9 (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 153982
+06-27 10:28:58.616  4241  4426 V NetworkPolicy: updateNotificationsNL() - totalBytes : 3957910744, policy : NetworkPolicy{template=NetworkTemplate: matchRule=MOBILE, subscriberId=716101..., matchSubscriberIds=[716101...] cycleRule=RecurrenceRule{start=2023-01-01T00:00-05:00[America/Lima] end=null period=P1M} warningBytes=40000000000 limitBytes=49999998976 lastWarningSnooze=-1 lastLimitSnooze=-1 lastRapidSnooze=-1 metered=true inferred=false}, CallingUID: 1000
+06-27 10:28:58.621 27010 27036 D WM-SystemJobScheduler: Scheduling work ID e98be027-c2ae-485d-99f6-382f45f1621b (com.google.apps.tiktok.contrib.work.TikTokListenableWorker), Job ID 154666
+06-27 10:28:58.646 27010 27010 D WM-SystemJobService: onStartJob for WorkGenerationalId(workSpecId=e98be027-c2ae-485d-99f6-382f45f1621b, generation=0)
+06-27 10:28:58.650 27010 27036 D WM-GreedyScheduler: Starting work for e98be027-c2ae-485d-99f6-382f45f1621b
+06-27 10:28:58.674 27010 27049 D WM-Processor: qwl: processing WorkGenerationalId(workSpecId=e98be027-c2ae-485d-99f6-382f45f1621b, generation=0)
+06-27 10:28:58.684  3908  3908 I SurfaceFlinger: SFWD update time=63699295235438
+06-27 10:28:58.729 27010 27049 D WM-Processor: Work WorkGenerationalId(workSpecId=e98be027-c2ae-485d-99f6-382f45f1621b, generation=0) is already enqueued for processing
+06-27 10:28:58.770  4241  4426 V NetworkPolicy: updateNotificationsNL() - totalBytes : 3957910744, policy : NetworkPolicy{template=NetworkTemplate: matchRule=MOBILE, subscriberId=716101..., matchSubscriberIds=[716101...] cycleRule=RecurrenceRule{start=2023-01-01T00:00-05:00[America/Lima] end=null period=P1M} warningBytes=40000000000 limitBytes=49999998976 lastWarningSnooze=-1 lastLimitSnooze=-1 lastRapidSnooze=-1 metered=true inferred=false}, CallingUID: 1000
+06-27 10:28:58.806 27010 27049 D WM-PackageManagerHelper: Skipping component enablement for androidx.work.impl.background.systemalarm.RescheduleReceiver
+06-27 10:28:58.815 27010 27010 D WM-WorkerWrapper: Starting work for com.google.apps.tiktok.contrib.work.TikTokListenableWorker
+06-27 10:28:58.846 27010 27050 I dzea    : Broadcasting OPA enabled
+06-27 10:28:58.852 27010 27050 I dzea    : Broadcasting OPA user enabled
+06-27 10:28:58.893  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.894  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.904  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.906  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.909  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.914  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.921  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:58.938 27010 27049 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=e98be027-c2ae-485d-99f6-382f45f1621b, class=com.google.apps.tiktok.contrib.work.TikTokListenableWorker, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker,TikTokWorker#com.google.android.libraries.search.assistant.launcher.OpaEnabledBroadcastWorker } ]
+06-27 10:28:58.949 27010 27010 D WM-Processor: qwl e98be027-c2ae-485d-99f6-382f45f1621b executed; reschedule = false
+06-27 10:28:58.950 27010 27010 D WM-SystemJobService: e98be027-c2ae-485d-99f6-382f45f1621b executed on JobScheduler
+06-27 10:28:58.970 27010 27049 D WM-GreedyScheduler: Cancelling work ID e98be027-c2ae-485d-99f6-382f45f1621b
+06-27 10:28:59.091  3762  3762 I io_stats: !@ 179,0 r 21774717 379093798 w 1505399 29244720 d 260440 13936732 f 126272 392996 iot 8490964 6630077 th 51200 51200 38556 pt 40180 inp 0 0 63699.701
+06-27 10:28:59.115  4241  4368 D SensorService: [SO] 0.047 0.090 9.777
+06-27 10:28:59.708  4726  4726 I wpa_supplicant: Heartbeat 367
+06-27 10:28:59.856  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:28:59.860  4241  6505 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:28:59.866  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:28:59.894  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.895  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.905  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.908  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.909  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.911  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.913  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.920  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:28:59.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.000  4241  4390 D SamsungAlarmManager: Expired : 8
+06-27 10:29:00.000  4241  4390 V SamsungAlarmManager: Sending to uid : 1000 L=cba92f3:TIME_TICK alarm=Alarm{5ac2ed3 type 3 when 145702072 android}
+06-27 10:29:00.002  4241  4390 D SamsungAlarmManager: setExact (T:3/F:1/AC:false) 20260627T103000 now=145702074 - CU:1000/CP:4241/L:cba92f3:TIME_TICK
+06-27 10:29:00.003  4241  4390 I SamsungAlarmManager: setLocked to kernel - T:2 / 20260627T102911, set=145713369, now=145702075
+06-27 10:29:00.005  4241  4390 I SamsungAlarmManager: setLocked to kernel - T:2 / 20260627T102911, set=145713369, now=145702077
+06-27 10:29:00.013  4587  5071 D QSClockBellTower: onReceive(android.intent.action.TIME_TICK) mTimeZoneString:null
+06-27 10:29:00.013  4587  5071 D QSClockBellTower: onReceive(android.intent.action.TIME_TICK) mTimeZoneString:null
+06-27 10:29:00.080  4587  4587 D KeyguardUpdateMonitor: received broadcast android.intent.action.TIME_TICK
+06-27 10:29:00.081  4587  4587 D QSClockBellTower: He is ready to ring the bell. (((QSClockBellSound - TimeText:10:29, TimeContentDescription:10:29 a. m., DateText:sáb., 27 de junio, ShortDateText:sáb., 27 de jun., Demofalse)))
+06-27 10:29:00.082  4587  4587 D QSClockHomeIndicatorView: Home Indicator status_bar_clock notifyTimeChanged(QSClockBellSound - TimeText:10:29, TimeContentDescription:10:29 a. m., DateText:sáb., 27 de junio, ShortDateText:sáb., 27 de jun., Demofalse) ClockVisibleByPolicy:true, ClockVisibleByUser:true, visible?true, parent:android.widget.LinearLayout{2d609cf V.E...... ......ID 0,0-97,83 #7f0a037c app:id/left_clock_container}
+06-27 10:29:00.082  4587  4587 D QSClockBellTower: Everyone heard the bell. run(currentTime:1782574140080,   getTime():Sat Jun 27 10:29:00 GMT-05:00 2026,   getTimeZone():libcore.util.ZoneInfo[id="America/Lima",mRawOffset=-18000000,mEarliestRawOffset=-18492000,mUseDst=false,mDstSavings=0,transitions=17])
+06-27 10:29:00.083  4587  4587 D QSClockBellTower: He is ready to ring the bell. (((QSClockBellSound - TimeText:10:29, TimeContentDescription:10:29 a. m., DateText:sáb., 27 de junio, ShortDateText:sáb., 27 de jun., Demofalse)))
+06-27 10:29:00.084  4587  4587 D QSClockHomeIndicatorView: Home Indicator status_bar_clock notifyTimeChanged(QSClockBellSound - TimeText:10:29, TimeContentDescription:10:29 a. m., DateText:sáb., 27 de junio, ShortDateText:sáb., 27 de jun., Demofalse) ClockVisibleByPolicy:true, ClockVisibleByUser:true, visible?true, parent:android.widget.LinearLayout{2d609cf V.E...... ......ID 0,0-97,83 #7f0a037c app:id/left_clock_container}
+06-27 10:29:00.084  4587  4587 D QSClockBellTower: Everyone heard the bell. run(currentTime:1782574140083,   getTime():Sat Jun 27 10:29:00 GMT-05:00 2026,   getTimeZone():libcore.util.ZoneInfo[id="America/Lima",mRawOffset=-18000000,mEarliestRawOffset=-18492000,mUseDst=false,mDstSavings=0,transitions=17])
+06-27 10:29:00.101  4587  4587 D KeyguardUpdateMonitor: handleTimeUpdate
+06-27 10:29:00.101  4587  4587 D FaceWidgetPagesController: onTimeChanged()
+06-27 10:29:00.835  4241 19883 I ChimeraPolicyHandler: Start executePolicy: TRIGGER_SOURCE_LMKD
+06-27 10:29:00.837  4241 19883 I ChimeraPolicyHandler: available memory: 695820, free memory target: 628736, quit chimera
+06-27 10:29:00.896  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.896  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.904  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.907  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.911  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.913  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.919  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.920  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:00.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.031  4241  4459 D ConnectivityService: Connectivity-MDO: 10226 is true
+06-27 10:29:01.031  4241  4459 D ConnectivityService: Connectivity-MDO change default network for 10226, type: mdo
+06-27 10:29:01.039  4241  4459 D ConnectivityService: Connectivity-MDO: 10185 is true
+06-27 10:29:01.039  4241  4459 D ConnectivityService: Connectivity-MDO change default network for 10185, type: mdo
+06-27 10:29:01.052  7006  7907 I HBD     : g onCapabilitiesChanged network : 617 current network state : wifi 
+06-27 10:29:01.073  4241  4459 I WifiConnectivityMonitor.NetworkCallbackController: sNetworkCallback onCapabilitiesChanged: 617[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED LinkUpBandwidth>=4290Kbps LinkDnBandwidth>=687Kbps SignalStrength: -65 OwnerUid: 1000 AdministratorUids: [] SSID: "TP-Link_8E8E" RequestorUid: -1 RequestorPackageName: null]
+06-27 10:29:01.082  4241  4459 D SemWifiSwitchForIndividualAppsService: stopTCPMonitoring : already stopped
+06-27 10:29:01.083  4241  4459 D SemWifiTransportLayerNotificationManager: showTcpMonitorSuggestionNotification: false, null
+06-27 10:29:01.083  4241  4459 D SemWifiTransportLayerNotificationManager: showTcpMonitorHeadUpNotification: false, 0, null
+06-27 10:29:01.083  4241  4459 D SemWifiTransportLayerNotificationManager: showTcpMonitorNotification: false, 0, null
+06-27 10:29:01.093  3762  3762 I io_stats: !@ 179,0 r 21775066 379097422 w 1505408 29244844 d 260441 13936748 f 126274 393002 iot 8491100 6630178 th 51200 51200 38556 pt 40180 inp 0 0 63701.703
+06-27 10:29:01.154  7006  7006 I HBD     : g onCapabilityChanged setNetworkState currentNetworkState : wifi, currentActiveNetwork : 617 ,currentNetworkCapabilities : [ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED LinkUpBandwidth>=4290Kbps LinkDnBandwidth>=687Kbps SignalStrength: -65 AdministratorUids: [] RequestorUid: -1 RequestorPackageName: null] 
+06-27 10:29:01.564 18489 16903 I NearbySharing: Network state changed: NetworkState(isRestricted=false, isOnline=true, isCongested=false, isMetered=false, isWifiConnected=true)
+06-27 10:29:01.894  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:01.897  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.898  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.901  4241  4265 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:29:01.904  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:01.906  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.908  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.909  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.912  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.913  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.919  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.921  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:01.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.899  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.900  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.906  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.912  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.914  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.919  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.922  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:02.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.097  3762  3762 I io_stats: !@ 179,0 r 21775069 379097478 w 1505408 29244844 d 260441 13936748 f 126274 393002 iot 8491100 6630179 th 51200 51200 38556 pt 40180 inp 0 0 63703.706
+06-27 10:29:03.686  3908  3908 I SurfaceFlinger: SFWD update time=63704297116434
+06-27 10:29:03.900  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.903  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.906  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.911  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.914  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.920  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.921  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.931  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:03.943  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:03.954  4241  4265 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:29:03.956  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:03.989  4241  4426 V NetworkPolicy: updateNotificationsNL() - totalBytes : 3957910744, policy : NetworkPolicy{template=NetworkTemplate: matchRule=MOBILE, subscriberId=716101..., matchSubscriberIds=[716101...] cycleRule=RecurrenceRule{start=2023-01-01T00:00-05:00[America/Lima] end=null period=P1M} warningBytes=40000000000 limitBytes=49999998976 lastWarningSnooze=-1 lastLimitSnooze=-1 lastRapidSnooze=-1 metered=true inferred=false}, CallingUID: 1000
+06-27 10:29:04.088  4241  4426 V NetworkPolicy: updateNotificationsNL() - totalBytes : 3957910744, policy : NetworkPolicy{template=NetworkTemplate: matchRule=MOBILE, subscriberId=716101..., matchSubscriberIds=[716101...] cycleRule=RecurrenceRule{start=2023-01-01T00:00-05:00[America/Lima] end=null period=P1M} warningBytes=40000000000 limitBytes=49999998976 lastWarningSnooze=-1 lastLimitSnooze=-1 lastRapidSnooze=-1 metered=true inferred=false}, CallingUID: 1000
+06-27 10:29:04.904  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.905  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.906  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.917  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.922  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:04.934  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.100  3762  3762 I io_stats: !@ 179,0 r 21775083 379097642 w 1505451 29245264 d 260441 13936748 f 126274 393002 iot 8491124 6630191 th 51200 51200 38556 pt 40180 inp 0 0 63705.710
+06-27 10:29:05.905  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.906  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.907  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.920  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.934  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:05.988  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:05.990  4241  6505 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:29:05.993  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:06.906  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.907  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.908  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.920  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.927  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:06.930  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.088  4241  4459 D ConnectivityService: Connectivity-MDO: 10226 is true
+06-27 10:29:07.088  4241  4459 D ConnectivityService: Connectivity-MDO change default network for 10226, type: mdo
+06-27 10:29:07.102  4241  4459 D ConnectivityService: Connectivity-MDO: 10185 is true
+06-27 10:29:07.102  4241  4459 D ConnectivityService: Connectivity-MDO change default network for 10185, type: mdo
+06-27 10:29:07.103  3762  3762 I io_stats: !@ 179,0 r 21775130 379097858 w 1505453 29245336 d 260442 13936752 f 126274 393004 iot 8491140 6630205 th 51200 51200 38556 pt 40180 inp 0 0 63707.713
+06-27 10:29:07.107  7006  7907 I HBD     : g onCapabilitiesChanged network : 617 current network state : wifi 
+06-27 10:29:07.166  4241  4459 I WifiConnectivityMonitor.NetworkCallbackController: sNetworkCallback onCapabilitiesChanged: 617[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED LinkUpBandwidth>=2681Kbps LinkDnBandwidth>=687Kbps SignalStrength: -61 OwnerUid: 1000 AdministratorUids: [] SSID: "TP-Link_8E8E" RequestorUid: -1 RequestorPackageName: null]
+06-27 10:29:07.178  4241  4459 D SemWifiSwitchForIndividualAppsService: stopTCPMonitoring : already stopped
+06-27 10:29:07.178  4241  4459 D SemWifiTransportLayerNotificationManager: showTcpMonitorSuggestionNotification: false, null
+06-27 10:29:07.178  4241  4459 D SemWifiTransportLayerNotificationManager: showTcpMonitorHeadUpNotification: false, 0, null
+06-27 10:29:07.178  4241  4459 D SemWifiTransportLayerNotificationManager: showTcpMonitorNotification: false, 0, null
+06-27 10:29:07.226  7006  7006 I HBD     : g onCapabilityChanged setNetworkState currentNetworkState : wifi, currentActiveNetwork : 617 ,currentNetworkCapabilities : [ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED LinkUpBandwidth>=2681Kbps LinkDnBandwidth>=687Kbps SignalStrength: -61 AdministratorUids: [] RequestorUid: -1 RequestorPackageName: null] 
+06-27 10:29:07.250  4241  4250 I system_server: Background young concurrent copying GC freed 311765(20MB) AllocSpace objects, 70(1400KB) LOS objects, 24% free, 64MB/85MB, paused 825us total 195.834ms
+06-27 10:29:07.624 18489 16903 I NearbySharing: Network state changed: NetworkState(isRestricted=false, isOnline=true, isCongested=false, isMetered=false, isWifiConnected=true)
+06-27 10:29:07.907  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.908  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.919  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.921  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.922  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.927  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.929  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.930  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.931  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:07.933  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.033  4241  4787 D BatteryService: Sending ACTION_BATTERY_CHANGED. scale:100, info:{.chargerAcOnline = false, .chargerUsbOnline = true, .chargerWirelessOnline = false, .maxChargingCurrent = 0, .maxChargingVoltage = 0, .batteryStatus = CHARGING, .batteryHealth = GOOD, .batteryPresent = true, .batteryLevel = 37, .batteryVoltage = 3901, .batteryTemperature = 285, .batteryCurrent = 375, .batteryCycleCount = 0, .batteryFullCharge = 4000000, .batteryChargeCounter = 1496000, .batteryTechnology = Li-ion}
+06-27 10:29:08.033  4241  4787 D BatteryService: online:4, current avg:300, charge type:1, POGO powered:false, power sharing:false, high voltage charger:false, charger_type:0, capacity:280000, misc_event:0x0, current_event:0x0, current_now:375
+06-27 10:29:08.035  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:08.036  4241  4391 D MotionRecognitionService:   onReceive : ACTION_BATTERY_CHANGED, Plugged: 2
+06-27 10:29:08.036  4241  4391 I MotionRecognitionService: [TA] In/out: true, curr state: 1
+06-27 10:29:08.037  4241  4241 D SemWifiApBroadcastReceiver: Received : android.intent.action.BATTERY_CHANGED
+06-27 10:29:08.038  4241  4241 D AdaptiveBrightnessLongtermModelBuilder: Received android.intent.action.BATTERY_CHANGED
+06-27 10:29:08.039  4241  4265 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:29:08.039  4544  4544 D SemBigDataInfoController: Intent : android.intent.action.BATTERY_CHANGED
+06-27 10:29:08.041  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:08.043  4587  4587 D KeyguardUpdateMonitor: received broadcast android.intent.action.BATTERY_CHANGED
+06-27 10:29:08.043  4587  4587 I PowerUI : BATTERY_HEALTH_CHECK extraHealth=2 mBatteryMiscEvent=0
+06-27 10:29:08.043  4587  4587 D PowerUI : priorPlugType = 2 mPlugType = 2 priorBatteryStatus = 2 mBatteryStatus = 2
+06-27 10:29:08.046  4587  4587 D PowerUI.Notification: showChargingNotice oldChargingType : 1 currentChargingType : 1 oldChargingTime : 15276000 mChargingTime : 15276000
+06-27 10:29:08.046  4587  4587 D PowerUI.Notification: There is no change about charging status, so return!
+06-27 10:29:08.046  4587  4587 D PowerUI : Battery swelling mode - priorBatterySwellingMode = 0 mBatterySwellingMode = 0 mBatteryStatus = 2
+06-27 10:29:08.046  4587  4587 I PowerUI : mBatteryMiscEvent = 0
+06-27 10:29:08.056 30883 30913 I ContactsProvider_EventLog: contents_sample_state: [CONTACT contacts(204) data(1966) accounts({com.google (2)=132, vnd.sec.contact.phone (1)=28, com.google (8)=45, com.google.android.apps.tachyon (5)=56, com.whatsapp (6)=161}) accounts deleted({}) in_trash(in_trash(0), in_trash_for_sync(0)) calls([logtype:100 cnt:136, logtype:300 cnt:500, logtype:1000 cnt:1304]) countryIso(PE) userId(0)  ]
+06-27 10:29:08.056 30883 30913 I ContactsProvider_EventLog: contents_sample_state: [ agr({[1 ,5]=1, [2 ,5 ,6]=7, [8]=6, [1 ,6]=19, [1]=4, [2]=23, [2 ,6 ,8 ,5]=1, [2 ,6]=76, [2 ,5]=8, [2 ,6 ,5]=17, [8 ,5 ,6]=1, [6 ,8 ,5]=1, [1 ,6 ,5]=4, [8 ,6 ,5]=15, [8 ,5]=1, [6 ,8]=1, [8 ,6]=19})  ]
+06-27 10:29:08.056 30883 30913 I ContactsProvider_EventLog: contents_sample_state: [ actCnt({android.process.acore(30883)=1})  ]
+06-27 10:29:08.056 30883 30913 I ContactsProvider_EventLog: contents_sample_state: [PROFILE contacts(0) data(0) accounts({})  ] [SAPROFILE contacts(1) data(1) accounts({vnd.sec.contact.phone (1)=1})  ]
+06-27 10:29:08.056 30883 30913 I ContactsProvider_EventLog: contents_sample_state: [STORAGE Contacts(CE) Profile(CE) SAProfile(CE) CallLog(CE)  ]
+06-27 10:29:08.077  4587  4587 I AODBatteryManager: updateBatteryData: ACTION_BATTERY_CHANGED
+06-27 10:29:08.079  4587  4587 I AODBatteryManager: saveBatteryData : AOD BatteryData [mBatteryLevel=37, mBatteryStatus=CHARGING, mBatteryPlugType=USB, mBatteryPlugged=true, mRemainingChargeTime=15276000, mBatteryChargingType=1, mBatteryChargerType=NORMAL, mBatteryOnline=USB, mBatterySwellingMode=NONE]
+06-27 10:29:08.080  4587  4587 D KeyguardUpdateMonitor: handleBatteryUpdate
+06-27 10:29:08.685  3908  3908 I SurfaceFlinger: SFWD update time=63709295701738
+06-27 10:29:08.908  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.909  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.911  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.921  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.927  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.930  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.932  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.935  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:08.936  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.109  3762  3762 I io_stats: !@ 179,0 r 21775233 379098922 w 1505478 29245500 d 260442 13936752 f 126274 393006 iot 8491188 6630242 th 51200 51200 38556 pt 40180 inp 0 0 63709.718
+06-27 10:29:09.115  4241  4368 D SensorService: [SO] 0.060 0.066 9.771
+06-27 10:29:09.717  4726  4726 I wpa_supplicant: Heartbeat 368
+06-27 10:29:09.908  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.914  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.917  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.921  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.927  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.930  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.931  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.934  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:09.936  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.077  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:10.079  4241  6470 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:29:10.081  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:10.665  4587  4788 D NetworkController.SecMobileSignalController(0/2): onSignalStrengthsChanged level=3
+06-27 10:29:10.666  4587  4788 D MobileSignalIconsSelector: getDataIconGroup(): 13
+06-27 10:29:10.666  4587  4788 D MobileSignalIconsSelector: updateTelephony : optionalRadioTech = 0
+06-27 10:29:10.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.912  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.920  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.922  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.927  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.931  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.934  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.939  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:10.940  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.113  3762  3762 I io_stats: !@ 179,0 r 21775238 379098962 w 1505478 29245500 d 260442 13936752 f 126274 393006 iot 8491188 6630243 th 51200 51200 38556 pt 40180 inp 0 0 63711.723
+06-27 10:29:11.297  4241  4390 D SamsungAlarmManager: Expired : 4
+06-27 10:29:11.305  4241  4390 V SamsungAlarmManager: Sending to uid : 10274 action=com.whatsapp.MessageHandler.LOGOUT_ACTION alarm=Alarm{486efe9 type 2 when 145713369 com.whatsapp}
+06-27 10:29:11.308  4241  4390 D ActivityManager: Received BROADCAST intent 0xcc26c30 Key{broadcastIntent pkg=com.whatsapp intent=act=com.whatsapp.MessageHandler.LOGOUT_ACTION pkg=com.whatsapp flags=0x4000000 u=0} requestCode=0 sent=0 from uid 1000
+06-27 10:29:11.337  4241  4390 I SamsungAlarmManager: setLocked to kernel - T:2 / 20260627T102959, set=145761471, now=145713409
+06-27 10:29:11.338  4241  4390 I SamsungAlarmManager: setLocked to kernel - T:3 / 20260627T102941, set=145743257, now=145713410
+06-27 10:29:11.346  4241  4272 D PowerManagerService: [api] setDeviceIdleTempWhitelist: appids: [0]10274  (uid: 1000 pid: 4241)
+06-27 10:29:11.380  4241  6505 D SamsungAlarmManager: Cancel Alarm calling from uid:10274 pid :17382 / OP:PendingIntent{ef8a70f: PendingIntentRecord{cc26c30 com.whatsapp broadcastIntent}}
+06-27 10:29:11.678 17382 23401 E msys    : E[N WA]_WAJMNSStreamImplOnMNSFailure(287)=>[LogLevel:I] WAJMNSStream/impl/callback/onMNSFailure/p=0x7abe0da680 (error=MNSTCPSocketReceive(): Received EOF)
+06-27 10:29:11.684 17382 23401 E msys    : E[N WA]_WAJMNSStreamImplCreateConnectionReport(194)=>[LogLevel:I] WAJMNSStream/impl/report port=443, connectedIPVersion=6, resolvedIPAddressCount=2, dnsResolutionStartTimeMS=63382813, dnsResolutionEndTimeMS=63382818, dnsCacheHit=Yes, connectStartTimeMS=63382818, connectEndTimeMS=63382861, proxyConnectStartTimeMS=0, proxyConnectEndTimeMS=0
+06-27 10:29:11.686 17382 23401 E msys    : E[N WA]_WAJMNSStreamImplUpdateStreamState(230)=>[LogLevel:I] WAJMNSStream/impl/state-changed/p=0x7abe0da680 (connected=>disconnected)
+06-27 10:29:11.764 17382 23369 E msys    : E[N WA]WAJMNSStreamImplDisconnectSync(514)=>[LogLevel:W] WAJMNSStream/impl/disconnect/p=0x7abe0da680 (bytesSent=4294)(bytesRecv=8155)
+06-27 10:29:11.865  4241  6505 D SamsungAlarmManager: Cancel Alarm calling from uid:10274 pid :17382 / OP:PendingIntent{75fe39c: PendingIntentRecord{bb84f6e com.whatsapp broadcastIntent}}
+06-27 10:29:11.867  4241  6505 I SamsungAlarmManager: setLocked to kernel - T:2 / 20260627T102959, set=145761471, now=145713938
+06-27 10:29:11.867  4241  6505 I SamsungAlarmManager: setLocked to kernel - T:3 / 20260627T102941, set=145743257, now=145713939
+06-27 10:29:11.910  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.911  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.913  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.922  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.925  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.927  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.933  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.934  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.940  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:11.941  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.115  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:12.118  4241  6505 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:29:12.120  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:12.830  3818  3818 E audit   : type=1400 audit(1782574152.827:35389): avc:  denied  { write } for  pid=18489 comm="ThreadPoolForeg" name="traced_producer" dev="tmpfs" ino=9631 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 SEPF_SM-A305G_11_0010 audit_filtered
+06-27 10:29:12.831  3818  3818 E audit   : type=1300 audit(1782574152.827:35389): arch=c00000b7 syscall=203 success=no exit=-13 a0=5c a1=7b2c74a100 a2=1e a3=ffffffff95c10c98 items=0 ppid=3833 pid=18489 auid=4294967295 uid=10094 gid=10094 euid=10094 suid=10094 fsuid=10094 egid=10094 sgid=10094 fsgid=10094 tty=(none) ses=4294967295 comm="ThreadPoolForeg" exe="/system/bin/app_process64" subj=u:r:gmscore_app:s0:c512,c768 key=(null)
+06-27 10:29:12.831  3818  3818 E audit   : type=1327 audit(1782574152.827:35389): proctitle="com.google.android.gms.persistent"
+06-27 10:29:12.912  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.913  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.914  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.922  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.927  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.929  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.932  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.935  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.939  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:12.941  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.110  4241  4459 D ConnectivityService: Connectivity-MDO: 10226 is true
+06-27 10:29:13.111  4241  4459 D ConnectivityService: Connectivity-MDO change default network for 10226, type: mdo
+06-27 10:29:13.114  4241  4459 D ConnectivityService: Connectivity-MDO: 10185 is true
+06-27 10:29:13.114  4241  4459 D ConnectivityService: Connectivity-MDO change default network for 10185, type: mdo
+06-27 10:29:13.117  3762  3762 I io_stats: !@ 179,0 r 21775778 379104910 w 1505478 29245500 d 260442 13936752 f 126274 393006 iot 8491388 6630397 th 51200 51200 38556 pt 40180 inp 0 0 63713.727
+06-27 10:29:13.126  4241  4459 I WifiConnectivityMonitor.NetworkCallbackController: sNetworkCallback onCapabilitiesChanged: 617[ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED LinkUpBandwidth>=2681Kbps LinkDnBandwidth>=687Kbps SignalStrength: -64 OwnerUid: 1000 AdministratorUids: [] SSID: "TP-Link_8E8E" RequestorUid: -1 RequestorPackageName: null]
+06-27 10:29:13.135  7006  7907 I HBD     : g onCapabilitiesChanged network : 617 current network state : wifi 
+06-27 10:29:13.140  4241  4459 D SemWifiSwitchForIndividualAppsService: stopTCPMonitoring : already stopped
+06-27 10:29:13.140  4241  4459 D SemWifiTransportLayerNotificationManager: showTcpMonitorSuggestionNotification: false, null
+06-27 10:29:13.140  4241  4459 D SemWifiTransportLayerNotificationManager: showTcpMonitorHeadUpNotification: false, 0, null
+06-27 10:29:13.140  4241  4459 D SemWifiTransportLayerNotificationManager: showTcpMonitorNotification: false, 0, null
+06-27 10:29:13.238  7006  7006 I HBD     : g onCapabilityChanged setNetworkState currentNetworkState : wifi, currentActiveNetwork : 617 ,currentNetworkCapabilities : [ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED LinkUpBandwidth>=2681Kbps LinkDnBandwidth>=687Kbps SignalStrength: -64 AdministratorUids: [] RequestorUid: -1 RequestorPackageName: null] 
+06-27 10:29:13.644 18489 16903 I NearbySharing: Network state changed: NetworkState(isRestricted=false, isOnline=true, isCongested=false, isMetered=false, isWifiConnected=true)
+06-27 10:29:13.685  3908  3908 I SurfaceFlinger: SFWD update time=63714296258735
+06-27 10:29:13.915  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.917  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.918  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.927  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.929  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.931  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.933  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.937  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.941  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:13.942  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.156  3832  3873 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:14.158  4241  6505 D NetdEventListenerService: DNS Requested by : 617, 10430
+06-27 10:29:14.161  3832  3881 E Netd    : getNetworkForDns: getNetId from enterpriseCtrl is netid 0
+06-27 10:29:14.261  4241  4426 V NetworkPolicy: updateNotificationsNL() - totalBytes : 3957910744, policy : NetworkPolicy{template=NetworkTemplate: matchRule=MOBILE, subscriberId=716101..., matchSubscriberIds=[716101...] cycleRule=RecurrenceRule{start=2023-01-01T00:00-05:00[America/Lima] end=null period=P1M} warningBytes=40000000000 limitBytes=49999998976 lastWarningSnooze=-1 lastLimitSnooze=-1 lastRapidSnooze=-1 metered=true inferred=false}, CallingUID: 1000
+06-27 10:29:14.352  4241  4426 V NetworkPolicy: updateNotificationsNL() - totalBytes : 3957910744, policy : NetworkPolicy{template=NetworkTemplate: matchRule=MOBILE, subscriberId=716101..., matchSubscriberIds=[716101...] cycleRule=RecurrenceRule{start=2023-01-01T00:00-05:00[America/Lima] end=null period=P1M} warningBytes=40000000000 limitBytes=49999998976 lastWarningSnooze=-1 lastLimitSnooze=-1 lastRapidSnooze=-1 metered=true inferred=false}, CallingUID: 1000
+06-27 10:29:14.502  4587  4788 D NetworkController.SecMobileSignalController(0/2): onSignalStrengthsChanged level=3
+06-27 10:29:14.503  4587  4788 D MobileSignalIconsSelector: getDataIconGroup(): 13
+06-27 10:29:14.503  4587  4788 D MobileSignalIconsSelector: updateTelephony : optionalRadioTech = 0
+06-27 10:29:14.916  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.919  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.922  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.923  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.924  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.926  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.929  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.930  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.933  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.937  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.941  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
+06-27 10:29:14.942  4241  4279 E ThermalHalWrapper: Couldn't get temperatures because of HAL error: Failed to read data
