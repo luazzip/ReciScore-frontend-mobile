@@ -15,7 +15,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from '../hooks/useAuth';
 
-export function RegisterScreen() {
+export function RegisterScreen({ navigation }: any) {
   const { register } = useAuth();
 
   const [name, setName] = useState('');
@@ -79,7 +79,7 @@ export function RegisterScreen() {
           contentContainerStyle={styles.scrollContent}
         >
           <View style={styles.header}>
-            <Pressable style={styles.backButton}>
+            <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
               <Text style={styles.backButtonText}>←</Text>
             </Pressable>
 
@@ -227,7 +227,7 @@ export function RegisterScreen() {
 
           <Text style={styles.loginText}>
             ¿Ya tienes una cuenta?{' '}
-            <Text style={styles.loginLink}>
+            <Text style={styles.loginLink} onPress={() => navigation.navigate('Login')}>
               Inicia Sesión
             </Text>
           </Text>
@@ -273,326 +273,86 @@ const colors = {
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-
-  keyboardView: {
-    flex: 1,
-  },
-
-  scrollContent: {
-    paddingHorizontal: 24,
-    paddingBottom: 40,
-  },
-
+  safeArea: { flex: 1, backgroundColor: colors.background },
+  keyboardView: { flex: 1 },
+  scrollContent: { paddingHorizontal: 24, paddingBottom: 40 },
   header: {
-    paddingTop: 12,
-    paddingBottom: 24,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    paddingTop: 12, paddingBottom: 24, flexDirection: 'row',
+    alignItems: 'center', justifyContent: 'space-between',
   },
-
   backButton: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    backgroundColor: colors.surfaceLow,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 42, height: 42, borderRadius: 21, backgroundColor: colors.surfaceLow,
+    alignItems: 'center', justifyContent: 'center',
   },
-
-  backButtonText: {
-    fontSize: 24,
-    color: colors.text,
-    fontWeight: '700',
-  },
-
-  logo: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: colors.primary,
-    letterSpacing: -1,
-  },
-
-  headerSpacer: {
-    width: 42,
-  },
-
+  backButtonText: { fontSize: 24, color: colors.text, fontWeight: '700' },
+  logo: { fontSize: 24, fontWeight: '800', color: colors.primary, letterSpacing: -1 },
+  headerSpacer: { width: 42 },
   backgroundCircleOne: {
-    position: 'absolute',
-    top: 70,
-    right: -80,
-    width: 220,
-    height: 220,
-    borderRadius: 110,
-    backgroundColor: '#9df19755',
+    position: 'absolute', top: 70, right: -80, width: 220, height: 220,
+    borderRadius: 110, backgroundColor: '#9df19755',
   },
-
   backgroundCircleTwo: {
-    position: 'absolute',
-    bottom: 120,
-    left: -90,
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    backgroundColor: '#8dedec44',
+    position: 'absolute', bottom: 120, left: -90, width: 200, height: 200,
+    borderRadius: 100, backgroundColor: '#8dedec44',
   },
-
-  titleContainer: {
-    marginBottom: 28,
-  },
-
-  title: {
-    fontSize: 38,
-    lineHeight: 44,
-    fontWeight: '900',
-    color: colors.text,
-    letterSpacing: -1.5,
-  },
-
-  titleHighlight: {
-    color: colors.primary,
-  },
-
-  subtitle: {
-    marginTop: 8,
-    fontSize: 17,
-    lineHeight: 24,
-    color: colors.textMuted,
-  },
-
+  titleContainer: { marginBottom: 28 },
+  title: { fontSize: 38, lineHeight: 44, fontWeight: '900', color: colors.text, letterSpacing: -1.5 },
+  titleHighlight: { color: colors.primary },
+  subtitle: { marginTop: 8, fontSize: 17, lineHeight: 24, color: colors.textMuted },
   card: {
-    backgroundColor: colors.surface,
-    borderRadius: 32,
-    padding: 24,
-    shadowColor: colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 18,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 28,
-    elevation: 6,
+    backgroundColor: colors.surface, borderRadius: 32, padding: 24,
+    shadowColor: colors.primary, shadowOffset: { width: 0, height: 18 },
+    shadowOpacity: 0.08, shadowRadius: 28, elevation: 6,
   },
-
   inputGroup: {
-    marginBottom: 22,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.outlineLight,
-    paddingBottom: 4,
+    marginBottom: 22, borderBottomWidth: 1,
+    borderBottomColor: colors.outlineLight, paddingBottom: 4,
   },
-
-  label: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: colors.outline,
-    letterSpacing: 1,
-    marginBottom: 4,
-  },
-
-  inputRow: {
-    minHeight: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  inputIcon: {
-    width: 32,
-    fontSize: 18,
-  },
-
-  input: {
-    flex: 1,
-    fontSize: 16,
-    color: colors.text,
-    paddingVertical: 10,
-  },
-
-  passwordToggle: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: colors.secondary,
-    paddingLeft: 8,
-  },
-
-  termsContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 12,
-    marginTop: 4,
-    marginBottom: 22,
-  },
-
+  label: { fontSize: 11, fontWeight: '800', color: colors.outline, letterSpacing: 1, marginBottom: 4 },
+  inputRow: { minHeight: 48, flexDirection: 'row', alignItems: 'center' },
+  inputIcon: { width: 32, fontSize: 18 },
+  input: { flex: 1, fontSize: 16, color: colors.text, paddingVertical: 10 },
+  passwordToggle: { fontSize: 13, fontWeight: '700', color: colors.secondary, paddingLeft: 8 },
+  termsContainer: { flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginTop: 4, marginBottom: 22 },
   checkbox: {
-    width: 22,
-    height: 22,
-    borderRadius: 7,
-    borderWidth: 1.5,
-    borderColor: colors.outlineLight,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 2,
+    width: 22, height: 22, borderRadius: 7, borderWidth: 1.5,
+    borderColor: colors.outlineLight, alignItems: 'center', justifyContent: 'center', marginTop: 2,
   },
-
-  checkboxChecked: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-  },
-
-  checkboxText: {
-    color: colors.white,
-    fontSize: 14,
-    fontWeight: '900',
-  },
-
-  termsText: {
-    flex: 1,
-    fontSize: 13,
-    lineHeight: 19,
-    color: colors.textMuted,
-  },
-
+  checkboxChecked: { backgroundColor: colors.primary, borderColor: colors.primary },
+  checkboxText: { color: colors.white, fontSize: 14, fontWeight: '900' },
+  termsText: { flex: 1, fontSize: 13, lineHeight: 19, color: colors.textMuted },
   submitButton: {
-    minHeight: 58,
-    borderRadius: 28,
-    backgroundColor: colors.primary,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    shadowColor: colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 18,
-    elevation: 5,
+    minHeight: 58, borderRadius: 28, backgroundColor: colors.primary,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8,
+    shadowColor: colors.primary, shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.22, shadowRadius: 18, elevation: 5,
   },
-
-  submitButtonDisabled: {
-    opacity: 0.7,
-  },
-
-  submitButtonText: {
-    color: '#d1ffc8',
-    fontSize: 18,
-    fontWeight: '800',
-  },
-
-  submitButtonIcon: {
-    color: '#d1ffc8',
-    fontSize: 24,
-    fontWeight: '800',
-  },
-
-  socialContainer: {
-    marginTop: 28,
-    alignItems: 'center',
-  },
-
-  socialTitle: {
-    fontSize: 11,
-    color: colors.outline,
-    fontWeight: '800',
-    letterSpacing: 1.5,
-    marginBottom: 14,
-  },
-
-  socialButtons: {
-    flexDirection: 'row',
-    gap: 14,
-  },
-
+  submitButtonDisabled: { opacity: 0.7 },
+  submitButtonText: { color: '#d1ffc8', fontSize: 18, fontWeight: '800' },
+  submitButtonIcon: { color: '#d1ffc8', fontSize: 24, fontWeight: '800' },
+  socialContainer: { marginTop: 28, alignItems: 'center' },
+  socialTitle: { fontSize: 11, color: colors.outline, fontWeight: '800', letterSpacing: 1.5, marginBottom: 14 },
+  socialButtons: { flexDirection: 'row', gap: 14 },
   socialButton: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    backgroundColor: colors.surfaceLow,
-    borderWidth: 1,
-    borderColor: colors.outlineLight,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 52, height: 52, borderRadius: 26, backgroundColor: colors.surfaceLow,
+    borderWidth: 1, borderColor: colors.outlineLight, alignItems: 'center', justifyContent: 'center',
   },
-
-  socialButtonText: {
-    fontSize: 22,
-    fontWeight: '800',
-    color: colors.text,
-  },
-
-  loginText: {
-    marginTop: 28,
-    textAlign: 'center',
-    color: colors.textMuted,
-    fontSize: 15,
-  },
-
-  loginLink: {
-    color: colors.primary,
-    fontWeight: '800',
-  },
-
+  socialButtonText: { fontSize: 22, fontWeight: '800', color: colors.text },
+  loginText: { marginTop: 28, textAlign: 'center', color: colors.textMuted, fontSize: 15 },
+  loginLink: { color: colors.primary, fontWeight: '800' },
   tipCard: {
-    marginTop: 36,
-    backgroundColor: '#176a210d',
-    borderWidth: 1,
-    borderColor: '#176a211a',
-    borderRadius: 28,
-    padding: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
+    marginTop: 36, backgroundColor: '#176a210d', borderWidth: 1, borderColor: '#176a211a',
+    borderRadius: 28, padding: 20, flexDirection: 'row', alignItems: 'center', gap: 14,
   },
-
   tipIconContainer: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    backgroundColor: '#176a2126',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 52, height: 52, borderRadius: 26, backgroundColor: '#176a2126',
+    alignItems: 'center', justifyContent: 'center',
   },
-
-  tipIcon: {
-    fontSize: 26,
-  },
-
-  tipContent: {
-    flex: 1,
-  },
-
-  tipTitle: {
-    fontSize: 14,
-    color: colors.primary,
-    fontWeight: '900',
-    marginBottom: 3,
-  },
-
-  tipDescription: {
-    fontSize: 12,
-    color: colors.textMuted,
-    lineHeight: 17,
-  },
-
-  footer: {
-    marginTop: 36,
-    alignItems: 'center',
-  },
-
-  footerLogo: {
-    fontSize: 18,
-    fontWeight: '900',
-    color: colors.text,
-  },
-
-  footerText: {
-    marginTop: 6,
-    fontSize: 11,
-    color: colors.outline,
-    letterSpacing: 1,
-  },
+  tipIcon: { fontSize: 26 },
+  tipContent: { flex: 1 },
+  tipTitle: { fontSize: 14, color: colors.primary, fontWeight: '900', marginBottom: 3 },
+  tipDescription: { fontSize: 12, color: colors.textMuted, lineHeight: 17 },
+  footer: { marginTop: 36, alignItems: 'center' },
+  footerLogo: { fontSize: 18, fontWeight: '900', color: colors.text },
+  footerText: { marginTop: 6, fontSize: 11, color: colors.outline, letterSpacing: 1 },
 });
