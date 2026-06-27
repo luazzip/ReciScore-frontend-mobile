@@ -9,7 +9,7 @@
     "ios": {
       "supportsTablet": true,
       "config": {
-        "googleMapsApiKey": "PENDIENTE_CONSEGUIR_KEY"
+        "googleMapsApiKey": "AIzaSyBwseDYNQqwyNiXenV7QmvG8YTBXCvSepI"
       }
     },
     "android": {
@@ -22,15 +22,21 @@
       "predictiveBackGestureEnabled": false,
       "config": {
         "googleMaps": {
-          "apiKey": "PENDIENTE_CONSEGUIR_KEY"
+          "apiKey": "AIzaSyBwseDYNQqwyNiXenV7QmvG8YTBXCvSepI"
         }
-      }
+      },
+      "package": "com.anonymous.reciscorefrontendmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "9d5601a2-8d89-4068-b36b-33f007fab77d"
+      }
+    }
   }
 }
