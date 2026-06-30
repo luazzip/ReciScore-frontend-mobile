@@ -1,27 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { getFriendlyApiError } from '../utils/apiError';
 
-export function useFetch<T>(fetchFunction: () => Promise<T>, dependencies: unknown[] = []) {
+type UseFetchOptions = {
+  enabled?: boolean;
+};
+
+export function useFetch<T>(
+  fetchFunction: () => Promise<T>,
+  dependencies: unknown[] = [],
+  options: UseFetchOptions = {}
+) {
+  const { enabled = true } = options;
   const [data, setData] = useState<T | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(enabled);
   const [error, setError] = useState<string | null>(null);
 
-  async function loadData() {
+  const loadData = useCallback(async () => {
+    if (!enabled) {
+      setIsLoading(false);
+      return;
+    }
+
     try {
       setIsLoading(true);
       setError(null);
-
       const result = await fetchFunction();
       setData(result);
-    } catch {
-      setError('No pudimos cargar la información. Inténtalo nuevamente.');
+    } catch (err) {
+      setError(getFriendlyApiError(err));
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [enabled, ...dependencies]);
 
   useEffect(() => {
     loadData();
-  }, dependencies);
+  }, [loadData]);
 
   return {
     data,

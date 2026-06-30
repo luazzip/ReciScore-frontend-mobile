@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Text, TouchableOpacity, Alert, ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Alert, Text, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DashboardScreen } from '../screens/DashboardScreen';
@@ -11,11 +11,25 @@ import { LoginScreen } from '../screens/LoginScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
 import { useCurrentUser } from '../hooks/useCurrentUser';
 import { AuthContext } from '../contexts/AuthContext';
+import { colors } from '../styles/theme';
 
-const Tab = createBottomTabNavigator();
-const AuthStack = createStackNavigator();
+export type AppTabParamList = {
+  Inicio: undefined;
+  Registrar: undefined;
+  Mapa: undefined;
+  Ranking: undefined;
+  Historial: undefined;
+};
 
-const ICONS: Record<string, string> = {
+export type AuthStackParamList = {
+  Login: undefined;
+  Register: undefined;
+};
+
+const Tab = createBottomTabNavigator<AppTabParamList>();
+const AuthStack = createStackNavigator<AuthStackParamList>();
+
+const ICONS: Record<keyof AppTabParamList, string> = {
   Inicio: '🏠',
   Registrar: '📷',
   Mapa: '🗺️',
@@ -27,19 +41,15 @@ function LogoutButton() {
   const auth = useContext(AuthContext);
 
   function handleLogout() {
-    Alert.alert(
-      'Cerrar sesión',
-      '¿Seguro que quieres salir?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        { text: 'Salir', style: 'destructive', onPress: () => auth?.logout() },
-      ]
-    );
+    Alert.alert('Cerrar sesión', '¿Seguro que quieres salir?', [
+      { text: 'Cancelar', style: 'cancel' },
+      { text: 'Salir', style: 'destructive', onPress: () => auth?.logout() },
+    ]);
   }
 
   return (
     <TouchableOpacity onPress={handleLogout} style={{ marginRight: 16 }}>
-      <Text style={{ fontSize: 14, color: '#c62828', fontWeight: '600' }}>Salir</Text>
+      <Text style={{ fontSize: 14, color: '#c62828', fontWeight: '700' }}>Salir</Text>
     </TouchableOpacity>
   );
 }
@@ -48,22 +58,29 @@ function HistoryTab() {
   const { userId, loading } = useCurrentUser();
 
   if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#2e7d32" />
-      </View>
-    );
+    return <CenteredLoader label="Identificando usuario..." />;
   }
 
   if (!userId) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
-        <Text>No se pudo identificar tu usuario. Vuelve a iniciar sesión.</Text>
+        <Text style={{ textAlign: 'center', color: colors.textMuted }}>
+          No se pudo identificar tu usuario. Cierra sesión e ingresa nuevamente.
+        </Text>
       </View>
     );
   }
 
   return <RecyclingHistoryScreen userId={userId} />;
+}
+
+function CenteredLoader({ label = 'Cargando...' }: { label?: string }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 12 }}>
+      <ActivityIndicator size="large" color={colors.primary} />
+      <Text style={{ color: colors.textMuted }}>{label}</Text>
+    </View>
+  );
 }
 
 function AppTabs() {
@@ -72,9 +89,13 @@ function AppTabs() {
       screenOptions={({ route }) => ({
         headerShown: true,
         headerRight: () => <LogoutButton />,
-        tabBarIcon: () => <Text style={{ fontSize: 20 }}>{ICONS[route.name]}</Text>,
-        tabBarActiveTintColor: '#2e7d32',
-        tabBarInactiveTintColor: '#888',
+        tabBarIcon: ({ focused }) => (
+          <Text style={{ fontSize: focused ? 22 : 20 }}>{ICONS[route.name]}</Text>
+        ),
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.outline,
+        tabBarLabelStyle: { fontWeight: '700', fontSize: 11 },
+        tabBarStyle: { height: 64, paddingBottom: 8, paddingTop: 6 },
       })}
     >
       <Tab.Screen name="Inicio" component={DashboardScreen} />
@@ -99,12 +120,8 @@ export function AppNavigator() {
   const auth = useContext(AuthContext);
 
   if (!auth || auth.isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#2e7d32" />
-      </View>
-    );
+    return <CenteredLoader label="Preparando ReciScore..." />;
   }
 
-  return  <AppTabs /> ;
+  return auth.isAuthenticated ? <AppTabs /> : <AuthFlow />;
 }

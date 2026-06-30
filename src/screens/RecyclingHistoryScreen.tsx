@@ -13,12 +13,14 @@ import { useFetch } from '../hooks/useFetch';
 import { getRecyclingHistoryByUser } from '../services/recyclingService';
 import { RecyclingReport } from '../types/recycling';
 import { colors, radius } from '../styles/theme';
+import { useCurrentUser } from '../hooks/useCurrentUser';
 
 interface Props {
   userId: number;
 }
 
 export function RecyclingHistoryScreen({ userId }: Props) {
+  const { user } = useCurrentUser();
   const {
     data: reports,
     isLoading,
@@ -74,7 +76,7 @@ export function RecyclingHistoryScreen({ userId }: Props) {
 
         <View style={styles.headerRight}>
           <View style={styles.pointsBadge}>
-            <Text style={styles.pointsBadgeText}>⭐ 4,250 pts</Text>
+            <Text style={styles.pointsBadgeText}>⭐ {user?.points.toLocaleString() ?? 0} pts</Text>
           </View>
 
           <Pressable>
@@ -99,7 +101,7 @@ export function RecyclingHistoryScreen({ userId }: Props) {
 
             <View style={styles.summaryGrid}>
               <View style={styles.totalCard}>
-                <Text style={styles.totalLabel}>PESO TOTAL RECOLECTADO</Text>
+                <Text style={styles.totalLabel}>TOTAL DE ARTÍCULOS REGISTRADOS</Text>
 
                 <View style={styles.totalValueRow}>
                   <Text style={styles.totalValue}>{totalItems}</Text>
@@ -190,15 +192,6 @@ export function RecyclingHistoryScreen({ userId }: Props) {
         }
       />
 
-      <View style={styles.bottomNav}>
-        <BottomNavItem icon="▦" label="Panel" />
-        <BottomNavItem icon="✍️" label="Registro" />
-        <BottomNavItem icon="🗺️" label="Mapa" />
-        <View style={styles.activeNavItem}>
-          <Text style={styles.activeNavIcon}>🕒</Text>
-          <Text style={styles.activeNavLabel}>Historial</Text>
-        </View>
-      </View>
     </SafeAreaView>
   );
 }

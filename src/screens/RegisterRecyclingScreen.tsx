@@ -91,11 +91,13 @@ export function RegisterRecyclingScreen() {
       return;
     }
 
-    if (!location && !locationDenied) {
+    if (!location) {
       Toast.show({
         type: 'error',
         text1: 'Ubicación requerida',
-        text2: 'Obtén tu ubicación GPS antes de registrar.',
+        text2: locationDenied
+          ? 'Activa el permiso de ubicación para validar puntos en la demo.'
+          : 'Obtén tu ubicación GPS antes de registrar.',
       });
       return;
     }
@@ -103,20 +105,21 @@ export function RegisterRecyclingScreen() {
     setSubmitting(true);
 
     try {
-      await createRecyclingReport({
-        userId: 0,
+      const report = await createRecyclingReport({
         materialId: selectedMaterialId,
         fotoUrl: uploadedPhotoUrl,
         tamanoObjeto: tamano,
         numeroArticulos: cantidad,
-        latitud: location?.latitude ?? 0,
-        longitud: location?.longitude ?? 0,
+        latitud: location.latitude,
+        longitud: location.longitude,
       });
 
       Toast.show({
         type: 'success',
-        text1: '¡Reciclaje registrado!',
-        text2: 'Ganaste puntos por tu acción. ¡Gracias!',
+        text1: report.validadoIa && report.gpsValidado ? '¡Reciclaje validado!' : 'Reciclaje registrado',
+        text2: report.validadoIa && report.gpsValidado
+          ? 'La IA y la ubicación fueron validadas. Tus puntos se actualizarán.'
+          : 'Quedó guardado, pero falta validación de IA o GPS para sumar puntos.',
       });
 
       resetCamera();
@@ -332,7 +335,7 @@ export function RegisterRecyclingScreen() {
 
           {locationDenied && (
             <Text style={styles.warningText}>
-              ⚠️ Permiso denegado — se registrará sin ubicación.
+              ⚠️ Permiso denegado — no se podrá validar ni sumar puntos hasta activar GPS.
             </Text>
           )}
 
@@ -372,15 +375,6 @@ export function RegisterRecyclingScreen() {
         </View>
       </ScrollView>
 
-      <View style={styles.bottomNav}>
-        <BottomNavItem icon="▦" label="Panel" />
-        <View style={styles.centerAction}>
-          <Text style={styles.centerActionIcon}>✍️</Text>
-        </View>
-        <BottomNavItem icon="🗺️" label="Mapa" />
-        <BottomNavItem icon="🏆" label="Ranking" />
-        <BottomNavItem icon="🛍️" label="Market" />
-      </View>
     </View>
   );
 }

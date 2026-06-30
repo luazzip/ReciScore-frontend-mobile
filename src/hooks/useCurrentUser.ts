@@ -1,33 +1,17 @@
-import { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
-import { getAccessToken } from '../services/tokenService';
-
-interface TokenPayload {
-  sub: string;
-  userId: number;
-  role: string;
-}
+import { useFetch } from './useFetch';
+import { getCurrentUserProfile } from '../services/userService';
 
 export function useCurrentUser() {
-  const [userId, setUserId] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: user, isLoading, error, refetch } = useFetch(
+    getCurrentUserProfile,
+    []
+  );
 
-  useEffect(() => {
-    async function loadUser() {
-      try {
-        const token = await getAccessToken();
-        if (token) {
-          const decoded = jwtDecode<TokenPayload>(token);
-          setUserId(decoded.userId);
-        }
-      } catch {
-        setUserId(null);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadUser();
-  }, []);
-
-  return { userId, loading };
+  return {
+    user,
+    userId: user?.id ?? null,
+    loading: isLoading,
+    error,
+    refetch,
+  };
 }
