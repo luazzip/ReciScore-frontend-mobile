@@ -26,7 +26,7 @@ const LIMA_REGION: Region = {
   longitudeDelta: 0.05,
 };
 
-type FilterType = 'TODOS' | 'PAPEL' | 'PLASTICO' | 'VIDRIO' | 'ACOPIO_OFICIAL' | 'ZONA_REPORTADA';
+type FilterType = 'TODOS' | 'ACOPIO_OFICIAL' | 'ZONA_SUCIA' | 'ZONA_REPORTADA';
 
 export function MapScreen() {
   const mapRef = useRef<MapView | null>(null);
@@ -55,7 +55,8 @@ export function MapScreen() {
 
       const matchesFilter =
         selectedFilter === 'TODOS' ||
-        point.tipo.toUpperCase() === selectedFilter;
+        point.tipo.toUpperCase() === selectedFilter ||
+        (selectedFilter === 'ZONA_REPORTADA' && point.tipo.toUpperCase() === 'ZONA_SUCIA');
 
       return matchesSearch && matchesFilter;
     });
@@ -270,27 +271,6 @@ export function MapScreen() {
           />
 
           <FilterChip
-            label="Papel"
-            icon="📄"
-            active={selectedFilter === 'PAPEL'}
-            onPress={() => setSelectedFilter('PAPEL')}
-          />
-
-          <FilterChip
-            label="Plástico"
-            icon="♻️"
-            active={selectedFilter === 'PLASTICO'}
-            onPress={() => setSelectedFilter('PLASTICO')}
-          />
-
-          <FilterChip
-            label="Vidrio"
-            icon="🍾"
-            active={selectedFilter === 'VIDRIO'}
-            onPress={() => setSelectedFilter('VIDRIO')}
-          />
-
-          <FilterChip
             label="Acopio"
             icon="📍"
             active={selectedFilter === 'ACOPIO_OFICIAL'}
@@ -343,7 +323,7 @@ export function MapScreen() {
                 <Text style={styles.detailSubtitle}>
                   {selectedPoint.tipo === 'ACOPIO_OFICIAL'
                     ? 'Punto de acopio oficial'
-                    : 'Zona reportada por la comunidad'}
+                    : 'Zona sucia o reportada por la comunidad'}
                 </Text>
               </View>
 
@@ -398,15 +378,6 @@ export function MapScreen() {
         )}
       </View>
 
-      <View style={styles.bottomNav}>
-        <BottomNavItem icon="▦" label="Panel" />
-        <BottomNavItem icon="✍️" label="Registrar" />
-        <View style={styles.mapNavButton}>
-          <Text style={styles.mapNavIcon}>🗺️</Text>
-        </View>
-        <BottomNavItem icon="🏆" label="Ranking" />
-        <BottomNavItem icon="🛍️" label="Market" />
-      </View>
 
       <Modal visible={reportModalVisible} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
@@ -499,7 +470,7 @@ const styles = StyleSheet.create({
   },
 
   map: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
   },
 
   centered: {

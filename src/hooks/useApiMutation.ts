@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getFriendlyApiError } from '../utils/apiError';
 
 export function useApiMutation<TData, TVariables>(
   mutationFunction: (variables: TVariables) => Promise<TData>
@@ -11,14 +12,13 @@ export function useApiMutation<TData, TVariables>(
     try {
       setIsLoading(true);
       setError(null);
-
       const result = await mutationFunction(variables);
       setData(result);
-
       return result;
-    } catch {
-      setError('No se pudo completar la acción. Inténtalo nuevamente.');
-      throw new Error('Mutation failed');
+    } catch (err) {
+      const message = getFriendlyApiError(err);
+      setError(message);
+      throw err;
     } finally {
       setIsLoading(false);
     }

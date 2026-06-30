@@ -1,5 +1,4 @@
 export interface RecyclingRequest {
-    userId: number;
     materialId: number;
     fotoUrl: string;
     tamanoObjeto: 'PEQUENO' | 'MEDIANO' | 'GRANDE';
@@ -10,7 +9,6 @@ export interface RecyclingRequest {
 
 export interface RecyclingReport {
     numeroReporte: number;
-    userId: number;
     userName: string;
     materialNombre: string;
     materialCategoria: string;

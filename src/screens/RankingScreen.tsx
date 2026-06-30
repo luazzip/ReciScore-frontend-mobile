@@ -1,15 +1,37 @@
 import {
+  ActivityIndicator,
   Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   View,
-} from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { colors, radius } from '../styles/theme';
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { colors, radius } from "../styles/theme";
+import { ErrorView } from "../components/ErrorView";
+import { useFetch } from "../hooks/useFetch";
+import { getRanking, RankingUser } from "../services/rankingService";
 
 export function RankingScreen() {
+  const { data: ranking, isLoading, error, refetch } = useFetch(getRanking, []);
+  const users = ranking ?? [];
+  const topUsers = users.slice(0, 10);
+  const totalPoints = users.reduce((sum, user) => sum + user.points, 0);
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.centeredState}>
+        <ActivityIndicator size="large" color={colors.primary} />
+        <Text style={styles.centeredStateText}>Cargando ranking...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return <ErrorView message={error} onRetry={refetch} />;
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
@@ -19,7 +41,7 @@ export function RankingScreen() {
 
         <View style={styles.headerRight}>
           <View style={styles.pointsBadge}>
-            <Text style={styles.pointsBadgeText}>⭐ 4,250 pts</Text>
+            <Text style={styles.pointsBadgeText}>🏆 Top {users.length}</Text>
           </View>
 
           <Pressable>
@@ -36,29 +58,27 @@ export function RankingScreen() {
           <Text style={styles.title}>Recicladores de Élite</Text>
 
           <Text style={styles.subtitle}>
-            Resumen de impacto en tu distrito: <Text style={styles.bold}>Miraflores</Text>
+            Ranking real generado desde el backend según puntos acumulados.
           </Text>
         </View>
 
         <View style={styles.summaryGrid}>
           <View style={[styles.summaryCard, styles.summaryCardGreen]}>
             <Text style={styles.summaryIcon}>🌱</Text>
-            <Text style={styles.summaryValue}>
-              142.5 <Text style={styles.summaryUnit}>kg</Text>
-            </Text>
-            <Text style={styles.summaryLabel}>AHORRO CO2</Text>
+            <Text style={styles.summaryValue}>{users.length}</Text>
+            <Text style={styles.summaryLabel}>USUARIOS</Text>
           </View>
 
           <View style={[styles.summaryCard, styles.summaryCardYellow]}>
             <Text style={styles.summaryIcon}>🏅</Text>
-            <Text style={styles.summaryValue}>12</Text>
-            <Text style={styles.summaryLabel}>MIS INSIGNIAS</Text>
+            <Text style={styles.summaryValue}>{totalPoints}</Text>
+            <Text style={styles.summaryLabel}>PTS TOTALES</Text>
           </View>
         </View>
 
         <View style={styles.badgesHeader}>
-          <Text style={styles.sectionLabel}>MIS INSIGNIAS</Text>
-          <Text style={styles.sectionLink}>Ver todas</Text>
+          <Text style={styles.sectionLabel}>INSIGNIAS</Text>
+          <Text style={styles.sectionLink}>Por nivel</Text>
         </View>
 
         <ScrollView
@@ -66,9 +86,9 @@ export function RankingScreen() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.badgesRow}
         >
-          <Badge icon="🏆" title="Primeros Pasos" color={colors.primary} />
-          <Badge icon="♻️" title="Rey del Vidrio" color={colors.tertiary} />
-          <Badge icon="🌿" title="Bio-Guardián" color={colors.secondary} />
+          <Badge icon="🏆" title="Top 1" color={colors.primary} />
+          <Badge icon="♻️" title="+500 pts" color={colors.tertiary} />
+          <Badge icon="🌿" title="Nivel 2" color={colors.secondary} />
           <Badge icon="🔒" title="Master Pro" locked />
         </ScrollView>
 
@@ -76,61 +96,24 @@ export function RankingScreen() {
           <Text style={styles.sectionLabel}>TOP CONTRIBUYENTES</Text>
 
           <View style={styles.rankingList}>
-            <View style={styles.currentUserRow}>
-              <View style={styles.currentRankCircle}>
-                <Text style={styles.currentRankText}>4</Text>
+            {topUsers.length === 0 ? (
+              <View style={styles.emptyCard}>
+                <Text style={styles.emptyIcon}>🏆</Text>
+                <Text style={styles.emptyTitle}>
+                  Aún no hay usuarios en el ranking.
+                </Text>
+                <Text style={styles.emptySubtitle}>
+                  Registra un reciclaje validado para aparecer aquí.
+                </Text>
               </View>
-
-              <View style={styles.userInfo}>
-                <Text style={styles.currentUserName}>Tú (User_99)</Text>
-                <Text style={styles.userLevel}>Nivel 4 Eco-Warrior</Text>
-              </View>
-
-              <View style={styles.pointsColumn}>
-                <Text style={styles.currentPoints}>4,250</Text>
-                <Text style={styles.pointsLabel}>PTS</Text>
-              </View>
-            </View>
-
-            <RankingRow
-              rank={1}
-              name="Elena Green"
-              level="Líder Ambiental"
-              points="8,920"
-              avatar="👩‍🌾"
-              first
-            />
-
-            <RankingRow
-              rank={2}
-              name="Marco Rivers"
-              level="Eco-Guardian"
-              points="7,140"
-              avatar="🧑‍💼"
-            />
-
-            <RankingRow
-              rank={3}
-              name="Ana Terra"
-              level="Bio-Warrior"
-              points="6,800"
-              avatar="👩‍🔬"
-            />
+            ) : (
+              topUsers.map((user) => (
+                <RankingRow key={user.userId} user={user} />
+              ))
+            )}
           </View>
         </View>
       </ScrollView>
-
-      <View style={styles.bottomNav}>
-        <BottomNavItem icon="▦" label="Panel" />
-        <BottomNavItem icon="🗺️" label="Mapa" />
-        <View style={styles.centerActionWrapper}>
-          <Pressable style={styles.centerAction}>
-            <Text style={styles.centerActionIcon}>✍️</Text>
-          </Pressable>
-        </View>
-        <BottomNavItem icon="🏆" label="Ranking" active />
-        <BottomNavItem icon="🕒" label="Historial" />
-      </View>
     </SafeAreaView>
   );
 }
@@ -142,7 +125,12 @@ type BadgeProps = {
   locked?: boolean;
 };
 
-function Badge({ icon, title, color = colors.primary, locked = false }: BadgeProps) {
+function Badge({
+  icon,
+  title,
+  color = colors.primary,
+  locked = false,
+}: BadgeProps) {
   return (
     <View
       style={[
@@ -161,19 +149,26 @@ function Badge({ icon, title, color = colors.primary, locked = false }: BadgePro
 }
 
 type RankingRowProps = {
-  rank: number;
-  name: string;
-  level: string;
-  points: string;
-  avatar: string;
-  first?: boolean;
+  user: RankingUser;
 };
 
-function RankingRow({ rank, name, level, points, avatar, first = false }: RankingRowProps) {
+function RankingRow({ user }: RankingRowProps) {
+  const first = user.posicion === 1;
+  const avatar =
+    user.posicion === 1
+      ? "👑"
+      : user.posicion === 2
+        ? "🥈"
+        : user.posicion === 3
+          ? "🥉"
+          : "♻️";
+
   return (
     <Pressable style={styles.rankingRow}>
       <View style={[styles.rankCircle, first && styles.firstRankCircle]}>
-        <Text style={[styles.rankText, first && styles.firstRankText]}>{rank}</Text>
+        <Text style={[styles.rankText, first && styles.firstRankText]}>
+          {user.posicion}
+        </Text>
       </View>
 
       <View style={styles.avatarCircle}>
@@ -181,34 +176,52 @@ function RankingRow({ rank, name, level, points, avatar, first = false }: Rankin
       </View>
 
       <View style={styles.userInfo}>
-        <Text style={styles.userName}>{name}</Text>
-        <Text style={styles.userLevel}>{level}</Text>
+        <Text style={styles.userName}>{user.name || user.username}</Text>
+        <Text style={styles.userLevel}>
+          Nivel {user.nivel} · {user.location ?? "Sin distrito"}
+        </Text>
       </View>
 
       <View style={styles.pointsColumn}>
-        <Text style={styles.userPoints}>{points}</Text>
+        <Text style={styles.userPoints}>
+          {user.points.toLocaleString("es-PE")}
+        </Text>
         <Text style={styles.pointsLabel}>PTS</Text>
       </View>
     </Pressable>
   );
 }
 
-type BottomNavItemProps = {
-  icon: string;
-  label: string;
-  active?: boolean;
-};
-
-function BottomNavItem({ icon, label, active = false }: BottomNavItemProps) {
-  return (
-    <Pressable style={styles.navItem}>
-      <Text style={[styles.navIcon, active && styles.navActive]}>{icon}</Text>
-      <Text style={[styles.navLabel, active && styles.navActive]}>{label}</Text>
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
+  centeredState: {
+    flex: 1,
+    backgroundColor: colors.background,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 12,
+    padding: 24,
+  },
+  centeredStateText: { color: colors.textMuted, fontWeight: "700" },
+  emptyCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: 24,
+    alignItems: "center",
+    gap: 8,
+  },
+  emptyIcon: { fontSize: 32 },
+  emptyTitle: {
+    fontSize: 16,
+    fontWeight: "900",
+    color: colors.text,
+    textAlign: "center",
+  },
+  emptySubtitle: {
+    fontSize: 13,
+    color: colors.textMuted,
+    textAlign: "center",
+    lineHeight: 19,
+  },
   safeArea: {
     flex: 1,
     backgroundColor: colors.background,
@@ -218,20 +231,20 @@ const styles = StyleSheet.create({
     height: 64,
     paddingHorizontal: 24,
     backgroundColor: colors.background,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 
   logo: {
     fontSize: 21,
-    fontWeight: '900',
+    fontWeight: "900",
     color: colors.primary,
   },
 
   headerRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 14,
   },
 
@@ -245,7 +258,7 @@ const styles = StyleSheet.create({
   pointsBadgeText: {
     fontSize: 12,
     color: colors.primary,
-    fontWeight: '900',
+    fontWeight: "900",
   },
 
   notificationIcon: {
@@ -266,7 +279,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     lineHeight: 36,
     color: colors.primary,
-    fontWeight: '900',
+    fontWeight: "900",
     letterSpacing: -1,
   },
 
@@ -277,12 +290,12 @@ const styles = StyleSheet.create({
   },
 
   bold: {
-    fontWeight: '900',
+    fontWeight: "900",
     color: colors.text,
   },
 
   summaryGrid: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 14,
     marginBottom: 28,
   },
@@ -293,7 +306,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     padding: 20,
     borderBottomWidth: 4,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.04,
     shadowRadius: 12,
@@ -315,13 +328,13 @@ const styles = StyleSheet.create({
 
   summaryValue: {
     fontSize: 24,
-    fontWeight: '900',
+    fontWeight: "900",
     color: colors.text,
   },
 
   summaryUnit: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: "500",
     color: colors.textMuted,
   },
 
@@ -329,28 +342,28 @@ const styles = StyleSheet.create({
     marginTop: 6,
     fontSize: 10,
     color: colors.textMuted,
-    fontWeight: '900',
+    fontWeight: "900",
     letterSpacing: 1.2,
   },
 
   badgesHeader: {
     paddingHorizontal: 8,
     marginBottom: 14,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   sectionLabel: {
     fontSize: 11,
     color: colors.textMuted,
-    fontWeight: '900',
+    fontWeight: "900",
     letterSpacing: 1.4,
   },
 
   sectionLink: {
     fontSize: 12,
     color: colors.primary,
-    fontWeight: '900',
+    fontWeight: "900",
   },
 
   badgesRow: {
@@ -364,7 +377,7 @@ const styles = StyleSheet.create({
     height: 128,
     borderRadius: 64,
     padding: 5,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.08,
     shadowRadius: 12,
@@ -375,8 +388,8 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 64,
     backgroundColor: colors.surface,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 12,
   },
 
@@ -392,9 +405,9 @@ const styles = StyleSheet.create({
   badgeTitle: {
     marginTop: 6,
     fontSize: 10,
-    fontWeight: '900',
+    fontWeight: "900",
     color: colors.text,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 13,
   },
 
@@ -409,16 +422,16 @@ const styles = StyleSheet.create({
   rankingList: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
 
   currentUserRow: {
     padding: 16,
-    backgroundColor: '#9df19733',
+    backgroundColor: "#9df19733",
     borderLeftWidth: 4,
     borderLeftColor: colors.primary,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 14,
   },
 
@@ -427,22 +440,22 @@ const styles = StyleSheet.create({
     height: 42,
     borderRadius: 21,
     backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   currentRankText: {
     color: colors.white,
     fontSize: 18,
-    fontWeight: '900',
+    fontWeight: "900",
   },
 
   rankingRow: {
     padding: 16,
     borderTopWidth: 1,
     borderTopColor: colors.surfaceContainer,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
   },
 
@@ -451,8 +464,8 @@ const styles = StyleSheet.create({
     height: 38,
     borderRadius: 19,
     backgroundColor: colors.surfaceHigh,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   firstRankCircle: {
@@ -462,11 +475,11 @@ const styles = StyleSheet.create({
   rankText: {
     color: colors.textMuted,
     fontSize: 17,
-    fontWeight: '900',
+    fontWeight: "900",
   },
 
   firstRankText: {
-    color: '#594a00',
+    color: "#594a00",
   },
 
   avatarCircle: {
@@ -474,8 +487,8 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 24,
     backgroundColor: colors.surfaceLow,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   avatarText: {
@@ -488,13 +501,13 @@ const styles = StyleSheet.create({
 
   currentUserName: {
     fontSize: 15,
-    fontWeight: '900',
+    fontWeight: "900",
     color: colors.text,
   },
 
   userName: {
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: "700",
     color: colors.text,
   },
 
@@ -505,31 +518,31 @@ const styles = StyleSheet.create({
   },
 
   pointsColumn: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
 
   currentPoints: {
     fontSize: 15,
-    fontWeight: '900',
+    fontWeight: "900",
     color: colors.primary,
   },
 
   userPoints: {
     fontSize: 15,
-    fontWeight: '900',
+    fontWeight: "900",
     color: colors.text,
   },
 
   pointsLabel: {
     marginTop: 2,
     fontSize: 9,
-    fontWeight: '900',
+    fontWeight: "900",
     color: colors.textMuted,
     letterSpacing: 0.7,
   },
 
   bottomNav: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     bottom: 0,
@@ -538,10 +551,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 10,
     paddingBottom: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    shadowColor: '#000',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: -6 },
     shadowOpacity: 0.05,
     shadowRadius: 16,
@@ -549,20 +562,20 @@ const styles = StyleSheet.create({
   },
 
   navItem: {
-    alignItems: 'center',
+    alignItems: "center",
     gap: 4,
   },
 
   navIcon: {
     fontSize: 20,
-    color: '#57534e',
+    color: "#57534e",
   },
 
   navLabel: {
     fontSize: 9,
-    color: '#57534e',
-    fontWeight: '900',
-    textTransform: 'uppercase',
+    color: "#57534e",
+    fontWeight: "900",
+    textTransform: "uppercase",
   },
 
   navActive: {
@@ -578,8 +591,8 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
     backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     shadowColor: colors.primary,
     shadowOffset: { width: 0, height: 12 },
     shadowOpacity: 0.25,

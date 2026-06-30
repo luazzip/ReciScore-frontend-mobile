@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { getMapPoints, MapPoint } from '../services/mapPointService';
+import { getAllReportesZona } from '../services/reporteZonaService';
 
 export function useMapPoints() {
   const [points, setPoints] = useState<MapPoint[]>([]);
@@ -10,9 +11,22 @@ export function useMapPoints() {
   const loadPoints = useCallback(async () => {
     setLoading(true);
     setError(false);
+
     try {
-      const data = await getMapPoints();
-      setPoints(data);
+      const [officialPoints, zoneReports] = await Promise.all([
+        getMapPoints().catch(() => []),
+        getAllReportesZona().catch(() => []),
+      ]);
+
+      const reportedPoints: MapPoint[] = zoneReports.map((report) => ({
+        id: -report.id,
+        latitude: report.latitude,
+        longitude: report.longitude,
+        nombre: report.descripcion?.trim() ? `Reporte: ${report.descripcion}` : 'Zona reportada por la comunidad',
+        tipo: report.procesado ? 'ZONA_SUCIA' : 'ZONA_REPORTADA',
+      }));
+
+      setPoints([...officialPoints, ...reportedPoints]);
     } catch {
       setError(true);
       Toast.show({
