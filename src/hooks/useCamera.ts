@@ -45,40 +45,58 @@ export function useCamera() {
     }
   }
 
-
-async function uploadPhoto(uri: string) {
+  async function uploadPhoto(uri: string) {
   setUploading(true);
   try {
-    const formData = new FormData();
-    formData.append('file', {
-      uri,
-      name: `reciclaje_${Date.now()}.jpg`,
-      type: 'image/jpeg',
-    } as any);
-
     const token = await getAccessToken();
 
-    const response = await fetch(
-      `${process.env.EXPO_PUBLIC_API_URL}/upload`,
-      {
-        method: 'POST',
-        body: formData,
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    const url = `${process.env.EXPO_PUBLIC_API_URL}/upload`;
+
+    await new Promise<void>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', url);
+
+      if (token) {
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
       }
-    );
 
-    if (!response.ok) {
-      throw new Error('Upload failed');
-    }
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const data = JSON.parse(xhr.responseText);
+            setUploadedPhotoUrl(data.url);
+            Toast.show({
+              type: 'success',
+              text1: 'Foto cargada',
+              text2: 'La foto se subió correctamente.',
+            });
+            resolve();
+          } catch {
+            reject(new Error('Respuesta inválida del servidor'));
+          }
+        } else {
+          console.error('Upload error status:', xhr.status, xhr.responseText);
+          reject(new Error(`Upload failed: ${xhr.status}`));
+        }
+      };
 
-    const data = await response.json();
-    setUploadedPhotoUrl(data.url);
-    Toast.show({
-      type: 'success',
-      text1: 'Foto cargada',
-      text2: 'La foto se subió correctamente.',
+      xhr.onerror = () => {
+        console.error('XHR network error');
+        reject(new Error('Error de red'));
+      };
+
+      const formData = new FormData();
+      formData.append('file', {
+        uri,
+        name: `reciclaje_${Date.now()}.jpg`,
+        type: 'image/jpeg',
+      } as any);
+
+      xhr.send(formData);
     });
-  } catch {
+
+  } catch (err) {
+    console.error('Upload exception:', err);
     Toast.show({
       type: 'error',
       text1: 'Error al subir foto',

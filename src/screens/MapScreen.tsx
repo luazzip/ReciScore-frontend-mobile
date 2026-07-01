@@ -15,6 +15,7 @@ import Toast from 'react-native-toast-message';
 import * as Location from 'expo-location';
 import { StatusBar } from 'expo-status-bar';
 import { useMapPoints } from '../hooks/useMapPoints';
+import { useCurrentUser } from '../hooks/useCurrentUser';
 //service de reportezona
 import { createReporteZona } from '../services/reporteZonaService';
 import { colors, radius } from '../styles/theme';
@@ -43,6 +44,7 @@ export function MapScreen() {
   const [reportCoords, setReportCoords] = useState<{ latitude: number; longitude: number } | null>(null);
   const [descripcion, setDescripcion] = useState('');
   const [submittingReport, setSubmittingReport] = useState(false);
+  const { user } = useCurrentUser();
 
   const filteredPoints = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
@@ -240,7 +242,7 @@ export function MapScreen() {
           <Text style={styles.notificationIcon}>🔔</Text>
 
           <View style={styles.pointsBadge}>
-            <Text style={styles.pointsBadgeText}>4,250 pts</Text>
+            <Text style={styles.pointsBadgeText}>{user?.points?.toLocaleString('es-PE') ?? '0'} pts</Text>
           </View>
         </View>
       </View>
