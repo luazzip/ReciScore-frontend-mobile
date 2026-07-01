@@ -155,22 +155,20 @@ export function RegisterRecyclingScreen() {
   }
 
   if (showCamera) {
-    return (
-      <View style={styles.cameraContainer}>
-        <CameraView style={styles.camera} facing="back" ref={cameraRef}>
-          <View style={styles.cameraControls}>
-            <Pressable style={styles.cancelBtn} onPress={() => setShowCamera(false)}>
-              <Text style={styles.cancelBtnText}>Cancelar</Text>
-            </Pressable>
-
-            <Pressable style={styles.captureBtn} onPress={takePhoto}>
-              <View style={styles.captureBtnInner} />
-            </Pressable>
-          </View>
-        </CameraView>
+  return (
+    <View style={styles.cameraContainer}>
+      <CameraView style={styles.camera} facing="back" ref={cameraRef} />
+      <View style={styles.cameraControls}>
+        <Pressable style={styles.cancelBtn} onPress={() => setShowCamera(false)}>
+          <Text style={styles.cancelBtnText}>Cancelar</Text>
+        </Pressable>
+        <Pressable style={styles.captureBtn} onPress={takePhoto}>
+          <View style={styles.captureBtnInner} />
+        </Pressable>
       </View>
-    );
-  }
+    </View>
+  );
+}
 
   return (
     <View style={styles.safeArea}>
