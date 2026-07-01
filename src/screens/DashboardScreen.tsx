@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Pressable,
   SafeAreaView,
@@ -17,20 +18,19 @@ import { ErrorView } from '../components/ErrorView';
 
 export function DashboardScreen({ navigation }: any) {
   const { user, loading, error, refetch } = useCurrentUser();
-
   const {
     data: impact,
     isLoading: impactLoading,
     error: impactError,
     refetch: refetchImpact,
   } = useFetch(getCurrentUserImpact, []);
-
   const { data: challenges } = useFetch(getChallenges, []);
+
+  const [showAllChallenges, setShowAllChallenges] = useState(false);
 
   if (loading || impactLoading) {
     return <LoadingView label="Cargando tu panel..." />;
   }
-
   if (error || impactError || !user || !impact) {
     return (
       <ErrorView
@@ -49,19 +49,20 @@ export function DashboardScreen({ navigation }: any) {
     100,
     Math.round(((user.points - currentLevelStart) / 1000) * 100)
   );
-  const topChallenges = (challenges ?? []).slice(0, 2);
+
+  const visibleChallenges = showAllChallenges
+    ? (challenges ?? [])
+    : (challenges ?? []).slice(0, 2);
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
-
       <View style={styles.header}>
         <Text style={styles.logo}>ReciScore</Text>
         <View style={styles.pointsBadge}>
           <Text style={styles.pointsBadgeText}>{user.points.toLocaleString()} pts</Text>
         </View>
       </View>
-
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <View style={styles.greetingSection}>
           <Text style={styles.greetingTitle}>
@@ -71,7 +72,6 @@ export function DashboardScreen({ navigation }: any) {
             {`Estás a ${pointsToNextLevel} pts de subir al Nivel ${user.nivel + 1}.`}
           </Text>
         </View>
-
         <View style={styles.heroCard}>
           <Text style={styles.heroLabel}>BALANCE DE IMPACTO</Text>
           <View style={styles.pointsRow}>
@@ -89,17 +89,19 @@ export function DashboardScreen({ navigation }: any) {
             <Text style={styles.primaryButtonText}>REGISTRAR RECICLAJE</Text>
           </Pressable>
         </View>
-
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Retos activos</Text>
-          <Pressable onPress={() => navigation.navigate('Ranking')}>
-            <Text style={styles.sectionLink}>VER RANKING</Text>
-          </Pressable>
+          {(challenges ?? []).length > 2 && (
+            <Pressable onPress={() => setShowAllChallenges((prev) => !prev)}>
+              <Text style={styles.sectionLink}>
+                {showAllChallenges ? 'VER MENOS' : 'VER TODO'}
+              </Text>
+            </Pressable>
+          )}
         </View>
-
         <View style={styles.challengeGrid}>
-          {topChallenges.length > 0 ? (
-            topChallenges.map((challenge) => (
+          {visibleChallenges.length > 0 ? (
+            visibleChallenges.map((challenge) => (
               <View key={challenge.id} style={styles.challengeCard}>
                 <Text style={styles.challengeIcon}>♻️</Text>
                 <Text style={styles.challengeTitle}>{challenge.titulo}</Text>
@@ -116,7 +118,6 @@ export function DashboardScreen({ navigation }: any) {
             </View>
           )}
         </View>
-
         <View style={styles.impactSection}>
           <Text style={styles.sectionTitle}>Tu Impacto Real</Text>
           <View style={styles.impactCard}>
@@ -127,9 +128,7 @@ export function DashboardScreen({ navigation }: any) {
                 <Text style={styles.impactLabel}>CO₂ AHORRADO ESTIMADO</Text>
               </View>
             </View>
-
             <View style={styles.separator} />
-
             <View style={styles.statsGrid}>
               <View style={styles.statBox}>
                 <Text style={styles.statLabel}>MATERIALES</Text>
@@ -144,14 +143,12 @@ export function DashboardScreen({ navigation }: any) {
                 <Text style={styles.statValue}>{impact.validatedReports}</Text>
               </View>
             </View>
-
             <View style={styles.treeCard}>
               <Text style={styles.treeText}>Equivalente aproximado a</Text>
               <Text style={styles.treeHighlight}>{impact.treesEquivalent.toFixed(1)} árboles maduros</Text>
             </View>
           </View>
         </View>
-
         <Pressable style={styles.rankingCard} onPress={() => navigation.navigate('Ranking')}>
           <Text style={styles.avatarEmoji}>🏆</Text>
           <View style={styles.rankingInfo}>
@@ -190,8 +187,8 @@ const styles = StyleSheet.create({
   sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 14 },
   sectionTitle: { fontSize: 21, fontWeight: '900', color: colors.text, letterSpacing: -0.5 },
   sectionLink: { fontSize: 11, fontWeight: '900', color: colors.primary, letterSpacing: 0.8 },
-  challengeGrid: { flexDirection: 'row', gap: 14, marginBottom: 32 },
-  challengeCard: { flex: 1, minHeight: 170, backgroundColor: colors.surface, borderRadius: radius.lg, padding: 18, justifyContent: 'space-between', borderBottomWidth: 4, borderBottomColor: '#176a2133' },
+  challengeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 14, marginBottom: 32 },
+  challengeCard: { width: '47%', minHeight: 170, backgroundColor: colors.surface, borderRadius: radius.lg, padding: 18, justifyContent: 'space-between', borderBottomWidth: 4, borderBottomColor: '#176a2133' },
   challengeIcon: { fontSize: 22 },
   challengeTitle: { fontSize: 14, fontWeight: '900', color: colors.text, lineHeight: 18 },
   challengeDescription: { marginTop: 4, fontSize: 10, color: colors.textMuted, lineHeight: 14 },
