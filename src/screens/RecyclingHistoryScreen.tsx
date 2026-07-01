@@ -90,7 +90,6 @@ export function RecyclingHistoryScreen({ userId }: { userId: number }) {
           </Pressable>
         </View>
       </View>
-
       <FlatList
         data={visibleReports}
         keyExtractor={(item) => item.numeroReporte.toString()}
@@ -143,9 +142,6 @@ export function RecyclingHistoryScreen({ userId }: { userId: number }) {
             >
               <Pressable style={styles.filterPrimary}>
                 <Text style={styles.filterPrimaryText}>☰ FILTROS</Text>
-              </Pressable>
-              <Pressable style={styles.filterSecondary}>
-                <Text style={styles.filterSecondaryText}>⬇ EXPORTAR</Text>
               </Pressable>
               <View style={styles.filterDivider} />
               <Pressable style={styles.filterChip}>
@@ -474,18 +470,6 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     letterSpacing: 0.8,
   },
-  filterSecondary: {
-    backgroundColor: colors.surfaceLow,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: radius.full,
-  },
-  filterSecondaryText: {
-    color: colors.text,
-    fontSize: 12,
-    fontWeight: '900',
-    letterSpacing: 0.8,
-  },
   filterDivider: {
     width: 1,
     height: 36,
@@ -627,10 +611,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 4,
     fontWeight: '600',
-  },
-  chevron: {
-    color: colors.outline,
-    fontSize: 30,
   },
   loadMoreButton: {
     marginTop: 4,
