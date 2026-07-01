@@ -76,22 +76,6 @@ export function RankingScreen() {
           </View>
         </View>
 
-        <View style={styles.badgesHeader}>
-          <Text style={styles.sectionLabel}>INSIGNIAS</Text>
-          <Text style={styles.sectionLink}>Por nivel</Text>
-        </View>
-
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.badgesRow}
-        >
-          <Badge icon="🏆" title="Top 1" color={colors.primary} />
-          <Badge icon="♻️" title="+500 pts" color={colors.tertiary} />
-          <Badge icon="🌿" title="Nivel 2" color={colors.secondary} />
-          <Badge icon="🔒" title="Master Pro" locked />
-        </ScrollView>
-
         <View style={styles.rankingSection}>
           <Text style={styles.sectionLabel}>TOP CONTRIBUYENTES</Text>
 
@@ -125,28 +109,6 @@ type BadgeProps = {
   locked?: boolean;
 };
 
-function Badge({
-  icon,
-  title,
-  color = colors.primary,
-  locked = false,
-}: BadgeProps) {
-  return (
-    <View
-      style={[
-        styles.badgeOuter,
-        { backgroundColor: locked ? colors.surfaceContainer : color },
-      ]}
-    >
-      <View style={[styles.badgeInner, locked && styles.badgeInnerLocked]}>
-        <Text style={styles.badgeIcon}>{icon}</Text>
-        <Text style={[styles.badgeTitle, locked && styles.badgeTitleLocked]}>
-          {title}
-        </Text>
-      </View>
-    </View>
-  );
-}
 
 type RankingRowProps = {
   user: RankingUser;
@@ -346,73 +308,12 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
   },
 
-  badgesHeader: {
-    paddingHorizontal: 8,
-    marginBottom: 14,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
 
   sectionLabel: {
     fontSize: 11,
     color: colors.textMuted,
     fontWeight: "900",
     letterSpacing: 1.4,
-  },
-
-  sectionLink: {
-    fontSize: 12,
-    color: colors.primary,
-    fontWeight: "900",
-  },
-
-  badgesRow: {
-    gap: 16,
-    paddingHorizontal: 8,
-    paddingBottom: 28,
-  },
-
-  badgeOuter: {
-    width: 128,
-    height: 128,
-    borderRadius: 64,
-    padding: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 4,
-  },
-
-  badgeInner: {
-    flex: 1,
-    borderRadius: 64,
-    backgroundColor: colors.surface,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 12,
-  },
-
-  badgeInnerLocked: {
-    backgroundColor: colors.surfaceLow,
-    opacity: 0.65,
-  },
-
-  badgeIcon: {
-    fontSize: 38,
-  },
-
-  badgeTitle: {
-    marginTop: 6,
-    fontSize: 10,
-    fontWeight: "900",
-    color: colors.text,
-    textAlign: "center",
-    lineHeight: 13,
-  },
-
-  badgeTitleLocked: {
-    color: colors.outline,
   },
 
   rankingSection: {
