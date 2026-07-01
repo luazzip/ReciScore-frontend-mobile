@@ -90,6 +90,8 @@ export function RecyclingHistoryScreen({ userId }: Props) {
         keyExtractor={(item) => item.numeroReporte.toString()}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
+        onRefresh={refetch}
+        refreshing={isLoading}
         ListHeaderComponent={
           <>
             <View style={styles.titleSection}>
