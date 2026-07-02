@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  ActivityIndicator,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -8,11 +9,17 @@ import {
   View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import Toast from 'react-native-toast-message';
 import { colors, radius } from '../styles/theme';
 import { useCurrentUser } from '../hooks/useCurrentUser';
 import { useFetch } from '../hooks/useFetch';
 import { getCurrentUserImpact } from '../services/userService';
-import { getChallenges } from '../services/challengeService';
+import {
+  getChallengesByUser,
+  joinChallenge,
+  leaveChallenge,
+  Challenge,
+} from '../services/challengeService';
 import { LoadingView } from '../components/LoadingView';
 import { ErrorView } from '../components/ErrorView';
 
@@ -24,9 +31,16 @@ export function DashboardScreen({ navigation }: any) {
     error: impactError,
     refetch: refetchImpact,
   } = useFetch(getCurrentUserImpact, []);
-  const { data: challenges } = useFetch(getChallenges, []);
+  const {
+    data: challenges,
+    refetch: refetchChallenges,
+  } = useFetch(
+    () => (user ? getChallengesByUser(user.id) : Promise.resolve([])),
+    [user?.id]
+  );
 
   const [showAllChallenges, setShowAllChallenges] = useState(false);
+  const [loadingChallengeId, setLoadingChallengeId] = useState<number | null>(null);
 
   if (loading || impactLoading) {
     return <LoadingView label="Cargando tu panel..." />;
@@ -53,6 +67,25 @@ export function DashboardScreen({ navigation }: any) {
   const visibleChallenges = showAllChallenges
     ? (challenges ?? [])
     : (challenges ?? []).slice(0, 2);
+
+  async function handleToggleChallenge(challenge: Challenge) {
+    if (loadingChallengeId !== null) return;
+    setLoadingChallengeId(challenge.id);
+    try {
+      if (challenge.inscrito) {
+        await leaveChallenge(challenge.id, user!.id);
+        Toast.show({ type: 'success', text1: 'Te has desinscrito del reto.' });
+      } else {
+        await joinChallenge(challenge.id, user!.id);
+        Toast.show({ type: 'success', text1: '¡Inscrito al reto!', text2: `+${challenge.puntos} pts al completarlo.` });
+      }
+      refetchChallenges();
+    } catch {
+      Toast.show({ type: 'error', text1: 'Error', text2: 'No se pudo actualizar la inscripción.' });
+    } finally {
+      setLoadingChallengeId(null);
+    }
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -89,6 +122,7 @@ export function DashboardScreen({ navigation }: any) {
             <Text style={styles.primaryButtonText}>REGISTRAR RECICLAJE</Text>
           </Pressable>
         </View>
+
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Retos activos</Text>
           {(challenges ?? []).length > 2 && (
@@ -101,16 +135,40 @@ export function DashboardScreen({ navigation }: any) {
         </View>
         <View style={styles.challengeGrid}>
           {visibleChallenges.length > 0 ? (
-            visibleChallenges.map((challenge) => (
-              <View key={challenge.id} style={styles.challengeCard}>
-                <Text style={styles.challengeIcon}>♻️</Text>
-                <Text style={styles.challengeTitle}>{challenge.titulo}</Text>
-                <Text style={styles.challengeDescription} numberOfLines={3}>
-                  {challenge.descripcion ?? `Completa el reto y gana ${challenge.puntos} puntos.`}
-                </Text>
-                <Text style={styles.challengePoints}>+{challenge.puntos} pts</Text>
-              </View>
-            ))
+            visibleChallenges.map((challenge) => {
+              const isEnrolled = challenge.inscrito;
+              const isThisLoading = loadingChallengeId === challenge.id;
+              return (
+                <View key={challenge.id} style={[styles.challengeCard, isEnrolled && styles.challengeCardEnrolled]}>
+                  <View style={styles.challengeTopRow}>
+                    <Text style={styles.challengeIcon}>♻️</Text>
+                    {isEnrolled && (
+                      <View style={styles.enrolledBadge}>
+                        <Text style={styles.enrolledBadgeText}>INSCRITO</Text>
+                      </View>
+                    )}
+                  </View>
+                  <Text style={styles.challengeTitle}>{challenge.titulo}</Text>
+                  <Text style={styles.challengeDescription} numberOfLines={3}>
+                    {challenge.descripcion ?? `Completa el reto y gana ${challenge.puntos} puntos.`}
+                  </Text>
+                  <Text style={styles.challengePoints}>+{challenge.puntos} pts</Text>
+                  <Pressable
+                    style={[styles.enrollButton, isEnrolled && styles.leaveButton]}
+                    onPress={() => handleToggleChallenge(challenge)}
+                    disabled={isThisLoading}
+                  >
+                    {isThisLoading ? (
+                      <ActivityIndicator size="small" color={isEnrolled ? '#b02500' : colors.white} />
+                    ) : (
+                      <Text style={[styles.enrollButtonText, isEnrolled && styles.leaveButtonText]}>
+                        {isEnrolled ? 'SALIR DEL RETO' : 'INSCRIBIRME'}
+                      </Text>
+                    )}
+                  </Pressable>
+                </View>
+              );
+            })
           ) : (
             <View style={styles.emptyCard}>
               <Text style={styles.emptyTitle}>No hay retos activos todavía.</Text>
@@ -118,6 +176,7 @@ export function DashboardScreen({ navigation }: any) {
             </View>
           )}
         </View>
+
         <View style={styles.impactSection}>
           <Text style={styles.sectionTitle}>Tu Impacto Real</Text>
           <View style={styles.impactCard}>
@@ -188,11 +247,19 @@ const styles = StyleSheet.create({
   sectionTitle: { fontSize: 21, fontWeight: '900', color: colors.text, letterSpacing: -0.5 },
   sectionLink: { fontSize: 11, fontWeight: '900', color: colors.primary, letterSpacing: 0.8 },
   challengeGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 14, marginBottom: 32 },
-  challengeCard: { width: '47%', minHeight: 170, backgroundColor: colors.surface, borderRadius: radius.lg, padding: 18, justifyContent: 'space-between', borderBottomWidth: 4, borderBottomColor: '#176a2133' },
+  challengeCard: { width: '47%', backgroundColor: colors.surface, borderRadius: radius.lg, padding: 18, justifyContent: 'space-between', borderBottomWidth: 4, borderBottomColor: '#176a2133', gap: 6 },
+  challengeCardEnrolled: { borderBottomColor: colors.primary, backgroundColor: '#f0fdf4' },
+  challengeTopRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   challengeIcon: { fontSize: 22 },
+  enrolledBadge: { backgroundColor: colors.primary, paddingHorizontal: 7, paddingVertical: 3, borderRadius: radius.full },
+  enrolledBadgeText: { color: colors.white, fontSize: 8, fontWeight: '900', letterSpacing: 0.5 },
   challengeTitle: { fontSize: 14, fontWeight: '900', color: colors.text, lineHeight: 18 },
-  challengeDescription: { marginTop: 4, fontSize: 10, color: colors.textMuted, lineHeight: 14 },
+  challengeDescription: { fontSize: 10, color: colors.textMuted, lineHeight: 14 },
   challengePoints: { color: colors.primary, fontWeight: '900', fontSize: 12 },
+  enrollButton: { marginTop: 8, backgroundColor: colors.primary, borderRadius: radius.full, paddingVertical: 9, alignItems: 'center' },
+  enrollButtonText: { color: colors.white, fontSize: 10, fontWeight: '900', letterSpacing: 0.6 },
+  leaveButton: { backgroundColor: '#fff0ee', borderWidth: 1.5, borderColor: '#f95630' },
+  leaveButtonText: { color: '#b02500' },
   impactSection: { marginBottom: 24 },
   impactCard: { marginTop: 14, backgroundColor: colors.surfaceLow, borderRadius: radius.lg, padding: 22 },
   impactMainRow: { flexDirection: 'row', alignItems: 'center', gap: 16 },
