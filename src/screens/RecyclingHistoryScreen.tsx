@@ -2,11 +2,13 @@ import { useState, useMemo } from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  Modal,
   Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
@@ -29,31 +31,91 @@ export function RecyclingHistoryScreen({ userId }: { userId: number }) {
 
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  const totalItems =
-    reports?.reduce((sum, report) => sum + report.numeroArticulos, 0) ?? 0;
-  const totalReports = reports?.length ?? 0;
-  const plasticReports =
-    reports?.filter((report) =>
-      report.materialNombre.toLowerCase().includes('plástico') ||
-      report.materialNombre.toLowerCase().includes('plastico')
-    ).length ?? 0;
-  const paperReports =
-    reports?.filter((report) =>
-      report.materialNombre.toLowerCase().includes('papel') ||
-      report.materialNombre.toLowerCase().includes('cartón') ||
-      report.materialNombre.toLowerCase().includes('carton')
-    ).length ?? 0;
+  // Filtro de fecha
+  const [dateModalVisible, setDateModalVisible] = useState(false);
+  const [filterDay, setFilterDay] = useState('');
+  const [filterMonth, setFilterMonth] = useState('');
+  const [filterYear, setFilterYear] = useState('');
+  const [appliedDay, setAppliedDay] = useState('');
+  const [appliedMonth, setAppliedMonth] = useState('');
+  const [appliedYear, setAppliedYear] = useState('');
+
+  // Filtro de material
+  const [materialModalVisible, setMaterialModalVisible] = useState(false);
+  const [selectedMaterial, setSelectedMaterial] = useState<string | null>(null);
+
+  const allMaterials = useMemo(() => {
+    const names = (reports ?? []).map((r) => r.materialNombre);
+    return Array.from(new Set(names)).sort();
+  }, [reports]);
+
+  const hasDateFilter = appliedDay || appliedMonth || appliedYear;
+  const hasMaterialFilter = !!selectedMaterial;
+
+  const filteredReports = useMemo(() => {
+    return (reports ?? []).filter((r) => {
+      // Filtro material
+      if (hasMaterialFilter && r.materialNombre !== selectedMaterial) return false;
+
+      // Filtro fecha
+      if (hasDateFilter) {
+        const date = new Date(r.fecha);
+        if (isNaN(date.getTime())) return false;
+        if (appliedDay && date.getDate() !== parseInt(appliedDay)) return false;
+        if (appliedMonth && date.getMonth() + 1 !== parseInt(appliedMonth)) return false;
+        if (appliedYear && date.getFullYear() !== parseInt(appliedYear)) return false;
+      }
+      return true;
+    });
+  }, [reports, appliedDay, appliedMonth, appliedYear, selectedMaterial]);
 
   const visibleReports = useMemo(
-    () => (reports ?? []).slice(0, visibleCount),
-    [reports, visibleCount]
+    () => filteredReports.slice(0, visibleCount),
+    [filteredReports, visibleCount]
   );
 
-  const hasMore = (reports?.length ?? 0) > visibleCount;
-  const allVisible = !hasMore && (reports?.length ?? 0) > 0;
+  const totalItems = (reports ?? []).reduce((sum, r) => sum + r.numeroArticulos, 0);
+  const totalReports = reports?.length ?? 0;
+  const plasticReports = (reports ?? []).filter((r) =>
+    r.materialNombre.toLowerCase().includes('plástico') ||
+    r.materialNombre.toLowerCase().includes('plastico')
+  ).length;
+  const paperReports = (reports ?? []).filter((r) =>
+    r.materialNombre.toLowerCase().includes('papel') ||
+    r.materialNombre.toLowerCase().includes('cartón') ||
+    r.materialNombre.toLowerCase().includes('carton')
+  ).length;
+
+  const hasMore = filteredReports.length > visibleCount;
+  const allVisible = !hasMore && filteredReports.length > 0;
 
   function loadMore() {
     setVisibleCount((prev) => prev + PAGE_SIZE);
+  }
+
+  function applyDateFilter() {
+    setAppliedDay(filterDay.trim());
+    setAppliedMonth(filterMonth.trim());
+    setAppliedYear(filterYear.trim());
+    setVisibleCount(PAGE_SIZE);
+    setDateModalVisible(false);
+  }
+
+  function clearDateFilter() {
+    setFilterDay('');
+    setFilterMonth('');
+    setFilterYear('');
+    setAppliedDay('');
+    setAppliedMonth('');
+    setAppliedYear('');
+    setVisibleCount(PAGE_SIZE);
+    setDateModalVisible(false);
+  }
+
+  function selectMaterial(material: string | null) {
+    setSelectedMaterial(material);
+    setVisibleCount(PAGE_SIZE);
+    setMaterialModalVisible(false);
   }
 
   if (isLoading) {
@@ -90,6 +152,7 @@ export function RecyclingHistoryScreen({ userId }: { userId: number }) {
           </Pressable>
         </View>
       </View>
+
       <FlatList
         data={visibleReports}
         keyExtractor={(item) => item.numeroReporte.toString()}
@@ -135,32 +198,66 @@ export function RecyclingHistoryScreen({ userId }: { userId: number }) {
                 <Text style={styles.smallSummaryValue}>{paperReports} registros</Text>
               </View>
             </View>
+
+            {/* Fila de filtros */}
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.filtersRow}
             >
-              <Pressable style={styles.filterPrimary}>
-                <Text style={styles.filterPrimaryText}>☰ FILTROS</Text>
+              <Pressable
+                style={[styles.filterChip, hasDateFilter && styles.filterChipActive]}
+                onPress={() => setDateModalVisible(true)}
+              >
+                <Text style={[styles.filterChipText, hasDateFilter && styles.filterChipTextActive]}>
+                  📅 {hasDateFilter
+                    ? [appliedDay, appliedMonth, appliedYear].filter(Boolean).join('/')
+                    : 'Fecha'}
+                </Text>
               </Pressable>
-              <View style={styles.filterDivider} />
-              <Pressable style={styles.filterChip}>
-                <Text style={styles.filterChipText}>Este Mes</Text>
+              <Pressable
+                style={[styles.filterChip, hasMaterialFilter && styles.filterChipActive]}
+                onPress={() => setMaterialModalVisible(true)}
+              >
+                <Text style={[styles.filterChipText, hasMaterialFilter && styles.filterChipTextActive]}>
+                  ♻️ {selectedMaterial ?? 'Material'}
+                </Text>
               </Pressable>
-              <Pressable style={styles.filterChip}>
-                <Text style={styles.filterChipText}>Materiales</Text>
-              </Pressable>
+              {(hasDateFilter || hasMaterialFilter) && (
+                <Pressable
+                  style={styles.clearChip}
+                  onPress={() => {
+                    clearDateFilter();
+                    setSelectedMaterial(null);
+                    setVisibleCount(PAGE_SIZE);
+                  }}
+                >
+                  <Text style={styles.clearChipText}>✕ Limpiar</Text>
+                </Pressable>
+              )}
             </ScrollView>
+
             <View style={styles.activityHeader}>
               <Text style={styles.activityTitle}>ACTIVIDAD RECIENTE</Text>
-              <Text style={styles.activityBadge}>{totalReports} depósitos totales</Text>
+              <Text style={styles.activityBadge}>
+                {filteredReports.length === totalReports
+                  ? `${totalReports} depósitos totales`
+                  : `${filteredReports.length} de ${totalReports}`}
+              </Text>
             </View>
-            {(!reports || reports.length === 0) && (
+
+            {filteredReports.length === 0 && (
               <View style={styles.emptyCard}>
                 <Text style={styles.emptyIcon}>📜</Text>
-                <Text style={styles.emptyTitle}>Todavía no tienes reciclajes registrados.</Text>
+                <Text style={styles.emptyTitle}>
+                  {hasDateFilter || hasMaterialFilter
+                    ? 'No hay registros con ese filtro.'
+                    : 'Todavía no tienes reciclajes registrados.'}
+                </Text>
                 <Text style={styles.emptySubtitle}>
-                  Registra tu primer residuo para comenzar a construir tu historial.
+                  {hasDateFilter || hasMaterialFilter
+                    ? 'Prueba cambiando o limpiando los filtros.'
+                    : 'Registra tu primer residuo para comenzar a construir tu historial.'}
                 </Text>
               </View>
             )}
@@ -177,39 +274,122 @@ export function RecyclingHistoryScreen({ userId }: { userId: number }) {
             {allVisible && (
               <View style={styles.footerEnd}>
                 <Text style={styles.footerIcon}>📚</Text>
-                <Text style={styles.footerText}>
-                  Has llegado al fin de tu historial.
-                </Text>
+                <Text style={styles.footerText}>Has llegado al fin de tu historial.</Text>
               </View>
             )}
           </>
         }
       />
+
+      {/* Modal de fecha */}
+      <Modal visible={dateModalVisible} animationType="slide" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalCard}>
+            <Text style={styles.modalTitle}>Filtrar por fecha</Text>
+            <Text style={styles.modalSubtitle}>Llena solo los campos que quieras filtrar.</Text>
+            <View style={styles.dateRow}>
+              <View style={styles.dateField}>
+                <Text style={styles.dateLabel}>DÍA</Text>
+                <TextInput
+                  style={styles.dateInput}
+                  placeholder="ej. 15"
+                  placeholderTextColor="#aaa"
+                  keyboardType="numeric"
+                  maxLength={2}
+                  value={filterDay}
+                  onChangeText={setFilterDay}
+                />
+              </View>
+              <View style={styles.dateField}>
+                <Text style={styles.dateLabel}>MES</Text>
+                <TextInput
+                  style={styles.dateInput}
+                  placeholder="ej. 6"
+                  placeholderTextColor="#aaa"
+                  keyboardType="numeric"
+                  maxLength={2}
+                  value={filterMonth}
+                  onChangeText={setFilterMonth}
+                />
+              </View>
+              <View style={styles.dateField}>
+                <Text style={styles.dateLabel}>AÑO</Text>
+                <TextInput
+                  style={styles.dateInput}
+                  placeholder="ej. 2025"
+                  placeholderTextColor="#aaa"
+                  keyboardType="numeric"
+                  maxLength={4}
+                  value={filterYear}
+                  onChangeText={setFilterYear}
+                />
+              </View>
+            </View>
+            <View style={styles.modalActions}>
+              <Pressable style={styles.modalCancelButton} onPress={clearDateFilter}>
+                <Text style={styles.modalCancelText}>Limpiar</Text>
+              </Pressable>
+              <Pressable style={styles.modalApplyButton} onPress={applyDateFilter}>
+                <Text style={styles.modalApplyText}>Aplicar</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Modal de material */}
+      <Modal visible={materialModalVisible} animationType="slide" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalCard}>
+            <Text style={styles.modalTitle}>Filtrar por material</Text>
+            <ScrollView style={styles.materialList} showsVerticalScrollIndicator={false}>
+              <Pressable
+                style={[styles.materialOption, !selectedMaterial && styles.materialOptionActive]}
+                onPress={() => selectMaterial(null)}
+              >
+                <Text style={[styles.materialOptionText, !selectedMaterial && styles.materialOptionTextActive]}>
+                  Todos los materiales
+                </Text>
+              </Pressable>
+              {allMaterials.map((mat) => (
+                <Pressable
+                  key={mat}
+                  style={[styles.materialOption, selectedMaterial === mat && styles.materialOptionActive]}
+                  onPress={() => selectMaterial(mat)}
+                >
+                  <Text style={[styles.materialOptionText, selectedMaterial === mat && styles.materialOptionTextActive]}>
+                    {mat}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+            <Pressable
+              style={styles.modalCancelButton}
+              onPress={() => setMaterialModalVisible(false)}
+            >
+              <Text style={styles.modalCancelText}>Cerrar</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
 
-type HistoryCardProps = {
-  report: RecyclingReport;
-};
+type HistoryCardProps = { report: RecyclingReport };
 
 function HistoryCard({ report }: HistoryCardProps) {
   const isValidated = report.validadoIa;
-  const points = calculatePoints(report.numeroArticulos, isValidated);
+  const points = isValidated ? report.numeroArticulos * 20 : 0;
   const formattedDate = formatDate(report.fecha);
-
   return (
     <Pressable style={styles.historyCard}>
       <View style={styles.historyIconBox}>
-        <Text style={styles.historyIcon}>
-          {isValidated ? '♻️' : '🕒'}
-        </Text>
+        <Text style={styles.historyIcon}>{isValidated ? '♻️' : '🕒'}</Text>
       </View>
       <View style={styles.historyContent}>
         <View style={styles.historyTopRow}>
-          <Text style={styles.historyTitle}>
-            {report.materialNombre}
-          </Text>
+          <Text style={styles.historyTitle}>{report.materialNombre}</Text>
           <View style={[styles.statusBadge, !isValidated && styles.statusBadgePending]}>
             <Text style={[styles.statusText, !isValidated && styles.statusTextPending]}>
               {isValidated ? 'Validado' : 'Pendiente'}
@@ -231,467 +411,103 @@ function HistoryCard({ report }: HistoryCardProps) {
   );
 }
 
-function calculatePoints(items: number, validated: boolean) {
-  if (!validated) return 0;
-  return items * 20;
-}
-
 function formatDate(dateValue: string) {
   const date = new Date(dateValue);
-  if (Number.isNaN(date.getTime())) {
-    return 'Fecha no disponible';
-  }
-  return date.toLocaleDateString('es-PE', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  });
+  if (isNaN(date.getTime())) return 'Fecha no disponible';
+  return date.toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  centered: {
-    flex: 1,
-    backgroundColor: colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
-  },
-  loadingText: {
-    marginTop: 12,
-    color: colors.textMuted,
-    fontWeight: '600',
-  },
-  errorText: {
-    color: '#b02500',
-    fontSize: 15,
-    textAlign: 'center',
-    marginBottom: 16,
-    fontWeight: '700',
-  },
-  retryButton: {
-    backgroundColor: colors.primary,
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: radius.lg,
-  },
-  retryButtonText: {
-    color: colors.white,
-    fontWeight: '900',
-  },
-  header: {
-    height: 64,
-    paddingHorizontal: 24,
-    backgroundColor: colors.background,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  logo: {
-    fontSize: 21,
-    fontWeight: '900',
-    color: colors.primary,
-  },
-  headerRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  pointsBadge: {
-    backgroundColor: colors.primaryLight,
-    paddingHorizontal: 14,
-    paddingVertical: 7,
-    borderRadius: radius.full,
-  },
-  pointsBadgeText: {
-    color: '#005c15',
-    fontSize: 12,
-    fontWeight: '900',
-  },
-  notificationIcon: {
-    fontSize: 21,
-  },
-  listContent: {
-    paddingHorizontal: 16,
-    paddingTop: 20,
-    paddingBottom: 120,
-  },
-  titleSection: {
-    marginBottom: 28,
-  },
-  title: {
-    color: colors.primary,
-    fontSize: 38,
-    lineHeight: 43,
-    fontWeight: '900',
-    letterSpacing: -1.3,
-  },
-  titleSecondary: {
-    color: colors.textMuted,
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  summaryGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-    marginBottom: 26,
-  },
-  totalCard: {
-    width: '100%',
-    backgroundColor: colors.primary,
-    borderRadius: radius.lg,
-    padding: 24,
-    overflow: 'hidden',
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 12 },
-    shadowOpacity: 0.2,
-    shadowRadius: 18,
-    elevation: 6,
-  },
-  totalLabel: {
-    color: '#d1ffc8cc',
-    fontSize: 11,
-    fontWeight: '900',
-    letterSpacing: 1.2,
-  },
-  totalValueRow: {
-    marginTop: 4,
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: 6,
-  },
-  totalValue: {
-    color: '#d1ffc8',
-    fontSize: 40,
-    fontWeight: '900',
-  },
-  totalUnit: {
-    color: '#d1ffc8dd',
-    fontSize: 18,
-    fontWeight: '800',
-  },
-  totalDecor: {
-    position: 'absolute',
-    right: -16,
-    bottom: -18,
-    fontSize: 96,
-    opacity: 0.12,
-  },
-  smallSummaryCard: {
-    flex: 1,
-    minWidth: '47%',
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    padding: 18,
-    borderBottomWidth: 4,
-    borderBottomColor: '#8dedec55',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.04,
-    shadowRadius: 12,
-    elevation: 2,
-  },
-  smallSummaryHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 12,
-  },
-  smallSummaryIconBox: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    backgroundColor: '#00666618',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  smallSummaryIconBoxYellow: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    backgroundColor: '#fdd40022',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  smallSummaryIcon: {
-    fontSize: 18,
-  },
-  smallSummaryBadge: {
-    backgroundColor: '#00666612',
-    color: colors.secondary,
-    fontSize: 10,
-    fontWeight: '900',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: radius.full,
-  },
-  smallSummaryBadgeYellow: {
-    backgroundColor: '#6d5a0012',
-    color: colors.tertiary,
-    fontSize: 10,
-    fontWeight: '900',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: radius.full,
-  },
-  smallSummaryLabel: {
-    color: colors.textMuted,
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  smallSummaryValue: {
-    marginTop: 4,
-    color: colors.text,
-    fontSize: 18,
-    fontWeight: '900',
-  },
-  filtersRow: {
-    gap: 10,
-    paddingBottom: 22,
-  },
-  filterPrimary: {
-    backgroundColor: colors.primary,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: radius.full,
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 7 },
-    shadowOpacity: 0.16,
-    shadowRadius: 12,
-    elevation: 4,
-  },
-  filterPrimaryText: {
-    color: '#d1ffc8',
-    fontSize: 12,
-    fontWeight: '900',
-    letterSpacing: 0.8,
-  },
-  filterDivider: {
-    width: 1,
-    height: 36,
-    backgroundColor: '#aaaeac55',
-    alignSelf: 'center',
-  },
-  filterChip: {
-    backgroundColor: colors.surface,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: radius.full,
-    borderWidth: 1,
-    borderColor: '#aaaeac33',
-  },
-  filterChipText: {
-    color: colors.textMuted,
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  activityHeader: {
-    paddingHorizontal: 4,
-    marginBottom: 14,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  activityTitle: {
-    color: colors.outline,
-    fontSize: 12,
-    fontWeight: '900',
-    letterSpacing: 1.2,
-  },
-  activityBadge: {
-    color: colors.primary,
-    backgroundColor: '#176a2110',
-    fontSize: 10,
-    fontWeight: '900',
-    paddingHorizontal: 9,
-    paddingVertical: 5,
-    borderRadius: radius.full,
-  },
-  emptyCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    padding: 24,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  emptyIcon: {
-    fontSize: 42,
-    marginBottom: 10,
-  },
-  emptyTitle: {
-    color: colors.text,
-    fontSize: 16,
-    fontWeight: '900',
-    textAlign: 'center',
-  },
-  emptySubtitle: {
-    color: colors.textMuted,
-    fontSize: 13,
-    textAlign: 'center',
-    marginTop: 6,
-    lineHeight: 19,
-  },
-  historyCard: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
-    marginBottom: 14,
-  },
-  historyIconBox: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#9df19733',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  historyIcon: {
-    fontSize: 23,
-  },
-  historyContent: {
-    flex: 1,
-  },
-  historyTopRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 8,
-    alignItems: 'flex-start',
-  },
-  historyTitle: {
-    flex: 1,
-    color: colors.text,
-    fontSize: 15,
-    fontWeight: '900',
-  },
-  statusBadge: {
-    backgroundColor: colors.primary,
-    paddingHorizontal: 9,
-    paddingVertical: 5,
-    borderRadius: radius.full,
-  },
-  statusBadgePending: {
-    backgroundColor: colors.tertiaryContainer,
-  },
-  statusText: {
-    color: colors.white,
-    fontSize: 9,
-    fontWeight: '900',
-    textTransform: 'uppercase',
-  },
-  statusTextPending: {
-    color: '#594a00',
-  },
-  historySubtitle: {
-    color: colors.textMuted,
-    fontSize: 12,
-    marginTop: 4,
-  },
-  pointsText: {
-    color: colors.primary,
-    fontSize: 12,
-    fontWeight: '900',
-    marginTop: 5,
-  },
-  pendingText: {
-    color: colors.textMuted,
-    fontSize: 12,
-    fontWeight: '800',
-    marginTop: 5,
-    fontStyle: 'italic',
-  },
-  validationText: {
-    color: colors.outline,
-    fontSize: 10,
-    marginTop: 4,
-    fontWeight: '600',
-  },
-  loadMoreButton: {
-    marginTop: 4,
-    marginBottom: 8,
-    marginHorizontal: 4,
-    paddingVertical: 15,
-    borderRadius: radius.full,
-    borderWidth: 1.5,
-    borderColor: colors.primary,
-    alignItems: 'center',
-  },
-  loadMoreText: {
-    color: colors.primary,
-    fontSize: 12,
-    fontWeight: '900',
-    letterSpacing: 1,
-  },
-  footerEnd: {
-    marginTop: 24,
-    alignItems: 'center',
-    paddingVertical: 26,
-  },
-  footerIcon: {
-    fontSize: 42,
-    marginBottom: 8,
-  },
-  footerText: {
-    color: colors.textMuted,
-    fontSize: 13,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  bottomNav: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 84,
-    backgroundColor: '#f4f7f5dd',
-    paddingHorizontal: 18,
-    paddingBottom: 10,
-    paddingTop: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -8 },
-    shadowOpacity: 0.06,
-    shadowRadius: 18,
-    elevation: 12,
-  },
-  navItem: {
-    alignItems: 'center',
-    gap: 4,
-  },
-  navIcon: {
-    fontSize: 20,
-    color: '#57534e',
-  },
-  navLabel: {
-    color: '#57534e',
-    fontSize: 9,
-    fontWeight: '900',
-    textTransform: 'uppercase',
-  },
-  activeNavItem: {
-    backgroundColor: colors.primary,
-    borderRadius: radius.full,
-    paddingHorizontal: 18,
-    paddingVertical: 10,
-    alignItems: 'center',
-    gap: 3,
-  },
-  activeNavIcon: {
-    color: colors.white,
-    fontSize: 19,
-  },
-  activeNavLabel: {
-    color: colors.white,
-    fontSize: 9,
-    fontWeight: '900',
-    textTransform: 'uppercase',
-  },
+  safeArea: { flex: 1, backgroundColor: colors.background },
+  centered: { flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', padding: 24 },
+  loadingText: { marginTop: 12, color: colors.textMuted, fontWeight: '600' },
+  errorText: { color: '#b02500', fontSize: 15, textAlign: 'center', marginBottom: 16, fontWeight: '700' },
+  retryButton: { backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: radius.lg },
+  retryButtonText: { color: colors.white, fontWeight: '900' },
+  header: { height: 64, paddingHorizontal: 24, backgroundColor: colors.background, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  logo: { fontSize: 21, fontWeight: '900', color: colors.primary },
+  headerRight: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  pointsBadge: { backgroundColor: colors.primaryLight, paddingHorizontal: 14, paddingVertical: 7, borderRadius: radius.full },
+  pointsBadgeText: { color: '#005c15', fontSize: 12, fontWeight: '900' },
+  notificationIcon: { fontSize: 21 },
+  listContent: { paddingHorizontal: 16, paddingTop: 20, paddingBottom: 120 },
+  titleSection: { marginBottom: 28 },
+  title: { color: colors.primary, fontSize: 38, lineHeight: 43, fontWeight: '900', letterSpacing: -1.3 },
+  titleSecondary: { color: colors.textMuted, fontSize: 24, fontWeight: '800' },
+  summaryGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginBottom: 26 },
+  totalCard: { width: '100%', backgroundColor: colors.primary, borderRadius: radius.lg, padding: 24, overflow: 'hidden', shadowColor: colors.primary, shadowOffset: { width: 0, height: 12 }, shadowOpacity: 0.2, shadowRadius: 18, elevation: 6 },
+  totalLabel: { color: '#d1ffc8cc', fontSize: 11, fontWeight: '900', letterSpacing: 1.2 },
+  totalValueRow: { marginTop: 4, flexDirection: 'row', alignItems: 'baseline', gap: 6 },
+  totalValue: { color: '#d1ffc8', fontSize: 40, fontWeight: '900' },
+  totalUnit: { color: '#d1ffc8dd', fontSize: 18, fontWeight: '800' },
+  totalDecor: { position: 'absolute', right: -16, bottom: -18, fontSize: 96, opacity: 0.12 },
+  smallSummaryCard: { flex: 1, minWidth: '47%', backgroundColor: colors.surface, borderRadius: radius.lg, padding: 18, borderBottomWidth: 4, borderBottomColor: '#8dedec55', shadowColor: '#000', shadowOffset: { width: 0, height: 5 }, shadowOpacity: 0.04, shadowRadius: 12, elevation: 2 },
+  smallSummaryHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 },
+  smallSummaryIconBox: { width: 34, height: 34, borderRadius: 17, backgroundColor: '#00666618', alignItems: 'center', justifyContent: 'center' },
+  smallSummaryIconBoxYellow: { width: 34, height: 34, borderRadius: 17, backgroundColor: '#fdd40022', alignItems: 'center', justifyContent: 'center' },
+  smallSummaryIcon: { fontSize: 18 },
+  smallSummaryBadge: { backgroundColor: '#00666612', color: colors.secondary, fontSize: 10, fontWeight: '900', paddingHorizontal: 8, paddingVertical: 3, borderRadius: radius.full },
+  smallSummaryBadgeYellow: { backgroundColor: '#6d5a0012', color: colors.tertiary, fontSize: 10, fontWeight: '900', paddingHorizontal: 8, paddingVertical: 3, borderRadius: radius.full },
+  smallSummaryLabel: { color: colors.textMuted, fontSize: 12, fontWeight: '700' },
+  smallSummaryValue: { marginTop: 4, color: colors.text, fontSize: 18, fontWeight: '900' },
+  filtersRow: { gap: 10, paddingBottom: 22 },
+  filterChip: { backgroundColor: colors.surface, paddingHorizontal: 18, paddingVertical: 12, borderRadius: radius.full, borderWidth: 1, borderColor: '#aaaeac33' },
+  filterChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  filterChipText: { color: colors.textMuted, fontSize: 13, fontWeight: '600' },
+  filterChipTextActive: { color: colors.white, fontWeight: '900' },
+  clearChip: { backgroundColor: '#fff0ee', paddingHorizontal: 16, paddingVertical: 12, borderRadius: radius.full, borderWidth: 1, borderColor: '#f9563033' },
+  clearChipText: { color: '#b02500', fontSize: 12, fontWeight: '900' },
+  activityHeader: { paddingHorizontal: 4, marginBottom: 14, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  activityTitle: { color: colors.outline, fontSize: 12, fontWeight: '900', letterSpacing: 1.2 },
+  activityBadge: { color: colors.primary, backgroundColor: '#176a2110', fontSize: 10, fontWeight: '900', paddingHorizontal: 9, paddingVertical: 5, borderRadius: radius.full },
+  emptyCard: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: 24, alignItems: 'center', marginTop: 10 },
+  emptyIcon: { fontSize: 42, marginBottom: 10 },
+  emptyTitle: { color: colors.text, fontSize: 16, fontWeight: '900', textAlign: 'center' },
+  emptySubtitle: { color: colors.textMuted, fontSize: 13, textAlign: 'center', marginTop: 6, lineHeight: 19 },
+  historyCard: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: 16, flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 14 },
+  historyIconBox: { width: 50, height: 50, borderRadius: 25, backgroundColor: '#9df19733', alignItems: 'center', justifyContent: 'center' },
+  historyIcon: { fontSize: 23 },
+  historyContent: { flex: 1 },
+  historyTopRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 8, alignItems: 'flex-start' },
+  historyTitle: { flex: 1, color: colors.text, fontSize: 15, fontWeight: '900' },
+  statusBadge: { backgroundColor: colors.primary, paddingHorizontal: 9, paddingVertical: 5, borderRadius: radius.full },
+  statusBadgePending: { backgroundColor: colors.tertiaryContainer },
+  statusText: { color: colors.white, fontSize: 9, fontWeight: '900', textTransform: 'uppercase' },
+  statusTextPending: { color: '#594a00' },
+  historySubtitle: { color: colors.textMuted, fontSize: 12, marginTop: 4 },
+  pointsText: { color: colors.primary, fontSize: 12, fontWeight: '900', marginTop: 5 },
+  pendingText: { color: colors.textMuted, fontSize: 12, fontWeight: '800', marginTop: 5, fontStyle: 'italic' },
+  validationText: { color: colors.outline, fontSize: 10, marginTop: 4, fontWeight: '600' },
+  loadMoreButton: { marginTop: 4, marginBottom: 8, marginHorizontal: 4, paddingVertical: 15, borderRadius: radius.full, borderWidth: 1.5, borderColor: colors.primary, alignItems: 'center' },
+  loadMoreText: { color: colors.primary, fontSize: 12, fontWeight: '900', letterSpacing: 1 },
+  footerEnd: { marginTop: 24, alignItems: 'center', paddingVertical: 26 },
+  footerIcon: { fontSize: 42, marginBottom: 8 },
+  footerText: { color: colors.textMuted, fontSize: 13, fontWeight: '600', textAlign: 'center' },
+  // Modales
+  modalOverlay: { flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end' },
+  modalCard: { backgroundColor: colors.surface, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24, maxHeight: '70%' },
+  modalTitle: { fontSize: 20, fontWeight: '900', color: colors.primary, marginBottom: 4 },
+  modalSubtitle: { fontSize: 13, color: colors.textMuted, marginBottom: 20 },
+  dateRow: { flexDirection: 'row', gap: 12, marginBottom: 24 },
+  dateField: { flex: 1 },
+  dateLabel: { color: colors.textMuted, fontSize: 10, fontWeight: '900', letterSpacing: 0.8, marginBottom: 6 },
+  dateInput: { borderWidth: 1.5, borderColor: colors.outlineLight, borderRadius: radius.md, padding: 12, fontSize: 16, fontWeight: '700', color: colors.text, backgroundColor: colors.surfaceLow, textAlign: 'center' },
+  modalActions: { flexDirection: 'row', gap: 12 },
+  modalCancelButton: { flex: 1, padding: 15, borderRadius: radius.md, borderWidth: 1.5, borderColor: colors.outline, alignItems: 'center', marginTop: 8 },
+  modalCancelText: { color: colors.textMuted, fontWeight: '800' },
+  modalApplyButton: { flex: 1, padding: 15, borderRadius: radius.md, backgroundColor: colors.primary, alignItems: 'center' },
+  modalApplyText: { color: colors.white, fontWeight: '900' },
+  materialList: { maxHeight: 300, marginBottom: 8 },
+  materialOption: { paddingVertical: 14, paddingHorizontal: 8, borderBottomWidth: 1, borderBottomColor: colors.surfaceContainer },
+  materialOptionActive: { backgroundColor: colors.primaryLight, borderRadius: radius.md },
+  materialOptionText: { fontSize: 15, color: colors.text, fontWeight: '600' },
+  materialOptionTextActive: { color: '#005c15', fontWeight: '900' },
+  // Nav (unused but kept)
+  bottomNav: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 84, backgroundColor: '#f4f7f5dd', paddingHorizontal: 18, paddingBottom: 10, paddingTop: 8, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: -8 }, shadowOpacity: 0.06, shadowRadius: 18, elevation: 12 },
+  navItem: { alignItems: 'center', gap: 4 },
+  navIcon: { fontSize: 20, color: '#57534e' },
+  navLabel: { color: '#57534e', fontSize: 9, fontWeight: '900', textTransform: 'uppercase' },
+  activeNavItem: { backgroundColor: colors.primary, borderRadius: radius.full, paddingHorizontal: 18, paddingVertical: 10, alignItems: 'center', gap: 3 },
+  activeNavIcon: { color: colors.white, fontSize: 19 },
+  activeNavLabel: { color: colors.white, fontSize: 9, fontWeight: '900', textTransform: 'uppercase' },
 });

@@ -10,6 +10,9 @@ export interface Challenge {
     fecha_inicio: string;
     fecha_fin: string;
     activo: boolean;
+    inscrito?: boolean;        
+    progresoActual?: number; 
+    completado?: boolean;  
 }
 
 export interface CreateChallengeRequest {
@@ -59,5 +62,18 @@ export async function updateChallenge(
     request: UpdateChallengeRequest
 ): Promise<Challenge> {
     const response = await api.patch<Challenge>(`/desafios/${id}`, request);
+    return response.data;
+}
+
+export async function getChallengesByUser(userId: number): Promise<Challenge[]> {
+    const response = await api.get<Challenge[]>(`/desafios/usuario/${userId}`);
+    return response.data;
+}
+
+export async function leaveChallenge(challengeId: number, userId: number): Promise<Challenge> {
+    const response = await api.delete<Challenge>(
+        `/desafios/${challengeId}/desistir`,
+        { params: { userId } }
+    );
     return response.data;
 }
